@@ -7,6 +7,7 @@
     tools:context=".ChartActivity">
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="358dp"
         android:layout_height="66dp"
         android:orientation="horizontal"
@@ -42,4 +43,47 @@
             android:scaleType="fitCenter"
             app:srcCompat="@drawable/profile" />
     </LinearLayout>
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="327dp"
+        android:layout_height="489dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnPieChart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="36dp"
+        android:text="Button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="40dp"
+        android:text="Button"
+        app:layout_constraintBottom_toBottomOf="@+id/btnPieChart"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="button3" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="btnPieChart,button3" />
 </androidx.constraintlayout.widget.ConstraintLayout>
