@@ -59,17 +59,17 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginTop="36dp"
-        android:text="Button"
+        android:text="Pie Chart"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/btnLineChart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="40dp"
-        android:text="Button"
+        android:text="Line Chart"
         app:layout_constraintBottom_toBottomOf="@+id/btnPieChart"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -79,11 +79,11 @@
         android:id="@+id/group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:constraint_referenced_ids="button3" />
+        app:constraint_referenced_ids="btnLineChart" />
 
     <androidx.constraintlayout.widget.Group
         android:id="@+id/group2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:constraint_referenced_ids="btnPieChart,button3" />
+        app:constraint_referenced_ids="btnPieChart,btnLineChart" />
 </androidx.constraintlayout.widget.ConstraintLayout>
