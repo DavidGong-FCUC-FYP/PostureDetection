@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_item1"
+        android:icon="@drawable/radar"
+        android:title="@string/navigation_detection" />
+    <item
+        android:id="@+id/navigation_item2"
+        android:icon="@drawable/chart"
+        android:title="@string/navigation_statistics" />
+    <item
+        android:id="@+id/navigation_item3"
+        android:icon="@drawable/profile"
+        android:title="@string/navigation_profile" />
+   
+</menu>
