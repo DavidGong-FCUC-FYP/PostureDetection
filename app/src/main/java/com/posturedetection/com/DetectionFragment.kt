@@ -38,6 +38,7 @@ class DetectionFragment : Fragment() {
     }
 
     companion object {
+        fun newInstance() = DetectionFragment()
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
@@ -47,13 +48,13 @@ class DetectionFragment : Fragment() {
          * @return A new instance of fragment DetectionFragment.
          */
         // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            DetectionFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+//        @JvmStatic
+//        fun newInstance(param1: String, param2: String) =
+//            DetectionFragment().apply {
+//                arguments = Bundle().apply {
+//                    putString(ARG_PARAM1, param1)
+//                    putString(ARG_PARAM2, param2)
+//                }
+//            }
     }
 }
