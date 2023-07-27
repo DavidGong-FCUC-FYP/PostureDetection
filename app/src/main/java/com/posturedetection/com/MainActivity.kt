@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val toolbar = getSupportActionBar();
+        //val toolbar = getSupportActionBar();
 
         loadFragment(DetectionFragment.newInstance())
         val bottom_navigation = findViewById<BottomNavigationView>(R.id.bottom_navigation)
@@ -23,17 +23,17 @@ class MainActivity : AppCompatActivity() {
             var fragment: Fragment
             when (item.itemId) {
                 R.id.nav_detection -> {
-                    toolbar!!.title = "Detection"
+                 //   toolbar!!.title = "Detection"
                     loadFragment(DetectionFragment.newInstance())
                     return@setOnItemSelectedListener true
                 }
                 R.id.nav_statistics -> {
-                    toolbar!!.title = "Statistics"
-                    loadFragment(ProfileFragment.newInstance("Statistics", "Statistics"))
+                  //  toolbar!!.title = "Statistics"
+                    loadFragment(StatisticsFragment.newInstance("Statistics", "Statistics"))
                     return@setOnItemSelectedListener true
                 }
                 R.id.nav_profile -> {
-                    toolbar!!.title = "Profile"
+                  //  toolbar!!.title = "Profile"
                     loadFragment(ProfileFragment.newInstance("Profile", "Profile"))
                     return@setOnItemSelectedListener true
                 }
