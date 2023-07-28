@@ -1,0 +1,76 @@
+{
+  "project_info": {
+    "project_number": "914524022254",
+    "project_id": "david-fyp-posturedetection",
+    "storage_bucket": "david-fyp-posturedetection.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:914524022254:android:34c589439137a1b5289aff",
+        "android_client_info": {
+          "package_name": "com.posturedetection.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "914524022254-fb9noptjnmk6i8pcage223c8t6g3fn3o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbe31_yuEDeFc7mGORyvi3WsiYKLBZ8dc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "914524022254-7ffegc8h4decpolcp2bj34ocdcbbupt6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:914524022254:android:8c23800029e6ca7d289aff",
+        "android_client_info": {
+          "package_name": "com.posturedetection.www"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "914524022254-2c0ssudmgocs3dsp1e6v10qjnkmfnjsh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.posturedetection.www",
+            "certificate_hash": "bf87537b2bbb3f8481535eac3c9a99788b1d452f"
+          }
+        },
+        {
+          "client_id": "914524022254-fb9noptjnmk6i8pcage223c8t6g3fn3o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbe31_yuEDeFc7mGORyvi3WsiYKLBZ8dc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "914524022254-7ffegc8h4decpolcp2bj34ocdcbbupt6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
