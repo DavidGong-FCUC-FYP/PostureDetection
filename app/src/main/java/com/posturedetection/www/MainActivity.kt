@@ -34,7 +34,10 @@ class MainActivity : AppCompatActivity() {
         googleSignInClient = GoogleSignIn.getClient(this , gso)
 
         findViewById<Button>(R.id.gSignInBtn).setOnClickListener {
-            signInGoogle()
+            //jump to HomeActivity
+            startActivity(Intent(this , HomeActivity::class.java))
+
+          //  signInGoogle()
         }
     }
 
