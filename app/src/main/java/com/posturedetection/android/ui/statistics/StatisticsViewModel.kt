@@ -10,4 +10,5 @@ class StatisticsViewModel : ViewModel() {
         value = "This is Statistics Fragment"
     }
     val text: LiveData<String> = _text
+
 }
