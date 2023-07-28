@@ -13,6 +13,10 @@
         android:theme="@style/Theme.PostureDetection"
         tools:targetApi="31">
         <activity
+            android:name="com.posturedetection.www.HomeActivity"
+            android:exported="false"
+            android:label="@string/title_activity_home" />
+        <activity
             android:name=".HomeActivity"
             android:exported="true" />
         <activity
@@ -25,7 +29,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>
