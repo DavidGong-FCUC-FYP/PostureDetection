@@ -196,147 +196,207 @@ class DetectionFragment : Fragment() {
         var crosslegPlayerFlag = true
         var forwardheadPlayerFlag = true
         var standardPlayerFlag = true
+        //if (isCameraPermissionGranted()) {
+            if (cameraSource == null) {
+                cameraSource =
+                    CameraSource(
+                        surfaceView,
+                        selectedCamera,
+                        object : CameraSource.CameraSourceListener {
+                            override fun onFPSListener(fps: Int) {
 
-        if (cameraSource == null) {
-            cameraSource =
-                CameraSource(surfaceView, selectedCamera, object : CameraSource.CameraSourceListener {
-                    override fun onFPSListener(fps: Int) {
-
-                        /** 解释一下，tfe_pe_tv 的意思：tensorflow example、pose estimation、text view */
-                        tvFPS.text = getString(R.string.tfe_pe_tv_fps, fps)
-                    }
-
-                    /** 对检测结果进行处理 */
-                    override fun onDetectedInfo(
-                        personScore: Float?,
-                        poseLabels: List<Pair<String, Float>>?
-                    ) {
-                        tvScore.text = getString(R.string.tfe_pe_tv_score, personScore ?: 0f)
-
-                        /** 分析目标姿态，给出提示 */
-                        if (poseLabels != null && personScore != null && personScore > 0.3) {
-                            missingCounter = 0
-                            val sortedLabels = poseLabels.sortedByDescending { it.second }
-                            when (sortedLabels[0].first) {
-                                "forwardhead" -> {
-                                    crosslegCounter = 0
-                                    standardCounter = 0
-                                    if (poseRegister == "forwardhead") {
-                                        forwardheadCounter++
-                                    }
-                                    poseRegister = "forwardhead"
-
-                                    /** 显示当前坐姿状态：脖子前伸 */
-                                    if (forwardheadCounter > 60) {
-
-                                        /** 播放提示音 */
-                                        if (forwardheadPlayerFlag) {
-                                            forwardheadPlayer.start()
-                                        }
-                                        standardPlayerFlag = true
-                                        crosslegPlayerFlag = true
-                                        forwardheadPlayerFlag = false
-
-                                        tvToolbarTitle.setText("please don't forward your head");
-                                        tvToolbarTitle.setTextColor(ContextCompat.getColor(requireContext(), R.color.red));
-
-                                        //ivStatus.setImageResource(R.drawable.forwardhead_confirm)
-                                    } else if (forwardheadCounter > 30) {
-                                        tvToolbarTitle.setText("Are you forward your head?");
-                                        tvToolbarTitle.setTextColor(ContextCompat.getColor(requireContext(), R.color.yellow));
-                                        //tvToolbarTitle.setText("Your sitting posture have problem.");
-                                       // ivStatus.setImageResource(R.drawable.forwardhead_suspect)
-                                    }
-
-                                    /** 显示 Debug 信息 */
-                                    tvDebug.text = getString(R.string.tfe_pe_tv_debug, "${sortedLabels[0].first} $forwardheadCounter")
-                                }
-                                "crossleg" -> {
-                                    forwardheadCounter = 0
-                                    standardCounter = 0
-                                    if (poseRegister == "crossleg") {
-                                        crosslegCounter++
-                                    }
-                                    poseRegister = "crossleg"
-
-                                    /** 显示当前坐姿状态：翘二郎腿 */
-                                    if (crosslegCounter > 60) {
-
-                                        /** 播放提示音 */
-                                        if (crosslegPlayerFlag) {
-                                            crosslegPlayer.start()
-                                        }
-                                        standardPlayerFlag = true
-                                        crosslegPlayerFlag = false
-                                        forwardheadPlayerFlag = true
-                                        tvToolbarTitle.setText("please don't cross your legs");
-                                        tvToolbarTitle.setTextColor(ContextCompat.getColor(requireContext(), R.color.red));
-                                        //ivStatus.setImageResource(R.drawable.crossleg_confirm)
-                                    } else if (crosslegCounter > 30) {
-                                        tvToolbarTitle.setText("Are you crossing your legs?");
-                                        tvToolbarTitle.setTextColor(ContextCompat.getColor(requireContext(), R.color.yellow));
-                                        //ivStatus.setImageResource(R.drawable.crossleg_suspect)
-                                    }
-
-                                    /** 显示 Debug 信息 */
-                                    tvDebug.text = getString(R.string.tfe_pe_tv_debug, "${sortedLabels[0].first} $crosslegCounter")
-                                }
-                                else -> {
-                                    forwardheadCounter = 0
-                                    crosslegCounter = 0
-                                    if (poseRegister == "standard") {
-                                        standardCounter++
-                                    }
-                                    poseRegister = "standard"
-
-                                    /** 显示当前坐姿状态：标准 */
-                                    if (standardCounter > 30) {
-
-                                        /** 播放提示音：坐姿标准 */
-                                        if (standardPlayerFlag) {
-                                            standardPlayer.start()
-                                        }
-                                        standardPlayerFlag = false
-                                        crosslegPlayerFlag = true
-                                        forwardheadPlayerFlag = true
-
-                                        tvToolbarTitle.setText("Your sitting posture is standard.");
-                                        tvToolbarTitle.setTextColor(ContextCompat.getColor(requireContext(), R.color.teal_200));
-
-                                        //ivStatus.setImageResource(R.drawable.standard)
-                                    }
-
-                                    /** 显示 Debug 信息 */
-                                    tvDebug.text = getString(R.string.tfe_pe_tv_debug, "${sortedLabels[0].first} $standardCounter")
-                                }
+                                /** 解释一下，tfe_pe_tv 的意思：tensorflow example、pose estimation、text view */
+                                tvFPS.text = getString(R.string.tfe_pe_tv_fps, fps)
                             }
 
+                            /** 对检测结果进行处理 */
+                            override fun onDetectedInfo(
+                                personScore: Float?,
+                                poseLabels: List<Pair<String, Float>>?
+                            ) {
+                                tvScore.text =
+                                    getString(R.string.tfe_pe_tv_score, personScore ?: 0f)
 
-                        }
-                        else {
-                            missingCounter++
-                            if (missingCounter > 30) {
-                                tvToolbarTitle.setText("Please sit in front of the camera.");
-                                tvToolbarTitle.setTextColor(ContextCompat.getColor(requireContext(), R.color.white));
-                            // ivStatus.setImageResource(R.drawable.no_target)
+                                /** 分析目标姿态，给出提示 */
+                                if (poseLabels != null && personScore != null && personScore > 0.3) {
+                                    missingCounter = 0
+                                    val sortedLabels = poseLabels.sortedByDescending { it.second }
+                                    when (sortedLabels[0].first) {
+                                        "forwardhead" -> {
+                                            crosslegCounter = 0
+                                            standardCounter = 0
+                                            if (poseRegister == "forwardhead") {
+                                                forwardheadCounter++
+                                            }
+                                            poseRegister = "forwardhead"
+
+                                            /** 显示当前坐姿状态：脖子前伸 */
+                                            if (forwardheadCounter > 60) {
+
+                                                /** 播放提示音 */
+                                                if (forwardheadPlayerFlag) {
+                                                    forwardheadPlayer.start()
+                                                }
+                                                standardPlayerFlag = true
+                                                crosslegPlayerFlag = true
+                                                forwardheadPlayerFlag = false
+
+                                                tvToolbarTitle.setText("please don't forward your head");
+                                                tvToolbarTitle.setTextColor(
+                                                    ContextCompat.getColor(
+                                                        requireContext(),
+                                                        R.color.red
+                                                    )
+                                                );
+
+                                                //ivStatus.setImageResource(R.drawable.forwardhead_confirm)
+                                            } else if (forwardheadCounter > 30) {
+                                                tvToolbarTitle.setText("Are you forward your head?");
+                                                tvToolbarTitle.setTextColor(
+                                                    ContextCompat.getColor(
+                                                        requireContext(),
+                                                        R.color.yellow
+                                                    )
+                                                );
+                                                //tvToolbarTitle.setText("Your sitting posture have problem.");
+                                                // ivStatus.setImageResource(R.drawable.forwardhead_suspect)
+                                            }
+
+                                            /** 显示 Debug 信息 */
+                                            tvDebug.text = getString(
+                                                R.string.tfe_pe_tv_debug,
+                                                "${sortedLabels[0].first} $forwardheadCounter"
+                                            )
+                                        }
+
+                                        "crossleg" -> {
+                                            forwardheadCounter = 0
+                                            standardCounter = 0
+                                            if (poseRegister == "crossleg") {
+                                                crosslegCounter++
+                                            }
+                                            poseRegister = "crossleg"
+
+                                            /** 显示当前坐姿状态：翘二郎腿 */
+                                            if (crosslegCounter > 60) {
+
+                                                /** 播放提示音 */
+                                                if (crosslegPlayerFlag) {
+                                                    crosslegPlayer.start()
+                                                }
+                                                standardPlayerFlag = true
+                                                crosslegPlayerFlag = false
+                                                forwardheadPlayerFlag = true
+                                                tvToolbarTitle.setText("please don't cross your legs");
+                                                tvToolbarTitle.setTextColor(
+                                                    ContextCompat.getColor(
+                                                        requireContext(),
+                                                        R.color.red
+                                                    )
+                                                );
+                                                //ivStatus.setImageResource(R.drawable.crossleg_confirm)
+                                            } else if (crosslegCounter > 30) {
+                                                tvToolbarTitle.setText("Are you crossing your legs?");
+                                                tvToolbarTitle.setTextColor(
+                                                    ContextCompat.getColor(
+                                                        requireContext(),
+                                                        R.color.yellow
+                                                    )
+                                                );
+                                                //ivStatus.setImageResource(R.drawable.crossleg_suspect)
+                                            }
+
+                                            /** 显示 Debug 信息 */
+                                            tvDebug.text = getString(
+                                                R.string.tfe_pe_tv_debug,
+                                                "${sortedLabels[0].first} $crosslegCounter"
+                                            )
+                                        }
+
+                                        else -> {
+                                            forwardheadCounter = 0
+                                            crosslegCounter = 0
+                                            if (poseRegister == "standard") {
+                                                standardCounter++
+                                            }
+                                            poseRegister = "standard"
+
+                                            /** 显示当前坐姿状态：标准 */
+                                            if (standardCounter > 30) {
+
+                                                /** 播放提示音：坐姿标准 */
+                                                if (standardPlayerFlag) {
+                                                    standardPlayer.start()
+                                                }
+                                                standardPlayerFlag = false
+                                                crosslegPlayerFlag = true
+                                                forwardheadPlayerFlag = true
+
+                                                tvToolbarTitle.setText("Your sitting posture is standard.");
+                                                tvToolbarTitle.setTextColor(
+                                                    ContextCompat.getColor(
+                                                        requireContext(),
+                                                        R.color.teal_200
+                                                    )
+                                                );
+
+                                                //ivStatus.setImageResource(R.drawable.standard)
+                                            }
+
+                                            /** 显示 Debug 信息 */
+                                            tvDebug.text = getString(
+                                                R.string.tfe_pe_tv_debug,
+                                                "${sortedLabels[0].first} $standardCounter"
+                                            )
+                                        }
+                                    }
+
+
+                                } else {
+                                    missingCounter++
+                                    if (missingCounter > 30) {
+                                        tvToolbarTitle.setText("Please sit in front of the camera.");
+                                        tvToolbarTitle.setTextColor(
+                                            ContextCompat.getColor(
+                                                requireContext(),
+                                                R.color.white
+                                            )
+                                        );
+                                        // ivStatus.setImageResource(R.drawable.no_target)
+                                    }
+
+                                    /** 显示 Debug 信息 */
+                                    tvDebug.text = getString(
+                                        R.string.tfe_pe_tv_debug,
+                                        "missing $missingCounter"
+                                    )
+                                }
                             }
-
-                            /** 显示 Debug 信息 */
-                            tvDebug.text = getString(R.string.tfe_pe_tv_debug, "missing $missingCounter")
-                        }
+                        }).apply {
+                        prepareCamera()
                     }
-                }).apply {
-                    prepareCamera()
+                isPoseClassifier()
+                lifecycleScope.launch(Dispatchers.Main) {
+                    cameraSource?.initCamera()
                 }
-            isPoseClassifier()
-            lifecycleScope.launch(Dispatchers.Main) {
-                cameraSource?.initCamera()
             }
-        }
-        createPoseEstimator()
+            createPoseEstimator()
+        //}
     }
 
-
+    private fun isCameraPermissionGranted(): Boolean {
+        return requireContext().let {
+            return ContextCompat.checkSelfPermission(
+                it,
+                Manifest.permission.CAMERA
+            ) == PackageManager.PERMISSION_GRANTED
+        }
+//        return checkPermission(
+//            Manifest.permission.CAMERA,
+//            Process.myPid(),
+//            Process.myUid()
+//        ) == PackageManager.PERMISSION_GRANTED
+    }
 
     private fun isPoseClassifier() {
         cameraSource?.setClassifier(if (isClassifyPose) PoseClassifier.create(requireContext()) else null)
