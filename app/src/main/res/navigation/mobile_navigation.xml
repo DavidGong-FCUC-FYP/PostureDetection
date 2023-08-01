@@ -5,11 +5,11 @@
     android:id="@+id/mobile_navigation"
     app:startDestination="@+id/navigation_detection">
 
-    <fragment
+    <activity
         android:id="@+id/navigation_detection"
-        android:name="com.posturedetection.android.ui.detection.DetectionFragment"
+        android:name="com.posturedetection.android.HomeActivity"
         android:label="@string/title_detection"
-        tools:layout="@layout/fragment_detection" />
+        tools:layout="@layout/activity_detection" />
 
     <fragment
         android:id="@+id/navigation_statistics"

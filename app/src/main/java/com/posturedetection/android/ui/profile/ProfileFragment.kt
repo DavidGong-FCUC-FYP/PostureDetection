@@ -44,9 +44,7 @@ class ProfileFragment : Fragment() {
 
         binding.signOut.setOnClickListener {
             auth.signOut()
-            val editor = sp.edit()
-            editor.clear()
-            editor.apply()
+            //close the app
             requireActivity().finish()
         }
 
