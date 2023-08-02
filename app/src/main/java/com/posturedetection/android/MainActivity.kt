@@ -14,12 +14,11 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.tasks.Task
-import com.google.android.material.button.MaterialButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.database.FirebaseDatabase
 import com.google.gson.Gson
-import com.posturedetection.android.data.User
+import com.posturedetection.android.data.LoginUser
 
 class MainActivity : AppCompatActivity() {
 
@@ -89,8 +88,12 @@ class MainActivity : AppCompatActivity() {
 
                 val sharedPreferences : SharedPreferences = getSharedPreferences("Login" , MODE_PRIVATE)
                 val editor : SharedPreferences.Editor = sharedPreferences.edit()
-                var user: User = User(account.email.toString(), account.displayName.toString())
-                val userJson = gson.toJson(user)
+                var loginUser: LoginUser =
+                    LoginUser(
+                        account.email.toString(),
+                        account.displayName.toString()
+                    )
+                val userJson = gson.toJson(loginUser)
                 editor.putString("account" , userJson)
                 Log.d("TAG", "updateUI: $userJson")
 

@@ -8,8 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
-import com.posturedetection.android.BarChartFragment
-import com.posturedetection.android.PieChartFragment
 import com.posturedetection.android.databinding.FragmentStatisticsBinding
 
 class StatisticsFragment : Fragment() {

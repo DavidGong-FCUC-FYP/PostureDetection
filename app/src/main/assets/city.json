@@ -1,0 +1,182 @@
+[
+  {
+    "code": "0101",
+    "name": "Johor Bahru",
+    "province": "01",
+    "city": "01"
+  },
+  {
+    "code": "0102",
+    "name": "Batu Pahat",
+    "province": "01",
+    "city": "02"
+  },
+  {
+    "code": "0201",
+    "name": "Alor Setar",
+    "province": "02",
+    "city": "01"
+  },
+  {
+    "code": "0202",
+    "name": "Langkawi",
+    "province": "02",
+    "city": "02"
+  },
+  {
+    "code": "0301",
+    "name": "Kota Bharu",
+    "province": "03",
+    "city": "01"
+  },
+  {
+    "code": "0302",
+    "name": "Pasir Mas",
+    "province": "03",
+    "city": "02"
+  },
+  {
+    "code": "0401",
+    "name": "Melaka City",
+    "province": "04",
+    "city": "01"
+  },
+  {
+    "code": "0402",
+    "name": "Ayer Keroh",
+    "province": "04",
+    "city": "02"
+  },
+  {
+    "code": "0501",
+    "name": "Seremban",
+    "province": "05",
+    "city": "01"
+  },
+  {
+    "code": "0502",
+    "name": "Port Dickson",
+    "province": "05",
+    "city": "02"
+  },
+  {
+    "code": "0601",
+    "name": "Kuantan",
+    "province": "06",
+    "city": "01"
+  },
+  {
+    "code": "0602",
+    "name": "Genting Highlands",
+    "province": "06",
+    "city": "02"
+  },
+  {
+    "code": "0701",
+    "name": "George Town",
+    "province": "07",
+    "city": "01"
+  },
+  {
+    "code": "0702",
+    "name": "Butterworth",
+    "province": "07",
+    "city": "02"
+  },
+  {
+    "code": "0801",
+    "name": "Ipoh",
+    "province": "08",
+    "city": "01"
+  },
+  {
+    "code": "0802",
+    "name": "Taiping",
+    "province": "08",
+    "city": "02"
+  },
+  {
+    "code": "0901",
+    "name": "Kangar",
+    "province": "09",
+    "city": "01"
+  },
+  {
+    "code": "0902",
+    "name": "Padang Besar",
+    "province": "09",
+    "city": "02"
+  },
+  {
+    "code": "1001",
+    "name": "Shah Alam",
+    "province": "10",
+    "city": "01"
+  },
+  {
+    "code": "1002",
+    "name": "Petaling Jaya",
+    "province": "10",
+    "city": "02"
+  },
+  {
+    "code": "1101",
+    "name": "Kuala Terengganu",
+    "province": "11",
+    "city": "01"
+  },
+  {
+    "code": "1102",
+    "name": "Chukai",
+    "province": "11",
+    "city": "02"
+  },
+  {
+    "code": "1201",
+    "name": "Kota Kinabalu",
+    "province": "12",
+    "city": "01"
+  },
+  {
+    "code": "1202",
+    "name": "Sandakan",
+    "province": "12",
+    "city": "02"
+  },
+  {
+    "code": "1301",
+    "name": "Kuching",
+    "province": "13",
+    "city": "01"
+  },
+  {
+    "code": "1302",
+    "name": "Mir i",
+    "province": "13",
+    "city": "02"
+  },
+  {
+    "code": "1401",
+    "name": "Kuala Lumpur",
+    "province": "14",
+    "city": "01"
+  },
+  {
+    "code": "1402",
+    "name": "Petaling Jaya",
+    "province": "14",
+    "city": "02"
+  },
+  {
+    "code": "1501",
+    "name": "Labuan",
+    "province": "15",
+    "city": "01"
+  },
+  {
+    "code": "1601",
+    "name": "Putrajaya",
+    "province": "16",
+    "city": "01"
+  }
+]

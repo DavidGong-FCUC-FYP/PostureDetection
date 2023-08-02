@@ -1,9 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".persionalInformationActivity">
+    android:orientation="vertical"
+    tools:context=".PersonalInformationActivity"
+    android:background="@color/gray9"
+    >
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <com.posturedetection.android.widget.TitleLayout
+        android:id="@+id/tl_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:id="@+id/ll_portrait"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="30dp"
+        android:paddingBottom="10dp"
+        android:background="@color/white">
+
+        <com.posturedetection.android.widget.RoundImageView
+            android:id="@+id/ri_portrait"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="@dimen/padding_left_and_right"
+            android:scaleType="centerCrop"
+            android:src="@drawable/profile"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Change Photo"
+            android:textColor="@color/gray3"
+            android:layout_gravity="center"
+            android:paddingLeft="@dimen/padding_left_and_right"/>
+
+    </LinearLayout>
+
+    <com.posturedetection.android.widget.ItemGroup
+        android:id="@+id/ig_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:jt_visible="false"
+        app:paddingLeft="@dimen/padding_left_and_right"
+        app:title="UID" />
+
+    <com.posturedetection.android.widget.ItemGroup
+        android:id="@+id/ig_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:edt_hint_content="Unfilled"
+        app:paddingLeft="@dimen/padding_left_and_right"
+        app:title="Name" />
+
+    <com.posturedetection.android.widget.ItemGroup
+        android:id="@+id/ig_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:edt_hint_content="Unfilled"
+        app:paddingLeft="@dimen/padding_left_and_right"
+        app:title="Email" />
+
+    <com.posturedetection.android.widget.ItemGroup
+        android:id="@+id/ig_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:edt_hint_content="Unfilled"
+        app:paddingLeft="@dimen/padding_left_and_right"
+        app:title="Phone" />
+
+    <com.posturedetection.android.widget.ItemGroup
+        android:id="@+id/ig_gender"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:edt_hint_content="Unselected"
+        app:paddingLeft="@dimen/padding_left_and_right"
+        app:title="Gender" />
+
+    <com.posturedetection.android.widget.ItemGroup
+        android:id="@+id/ig_region"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        app:edt_hint_content="Unselected"
+        app:paddingLeft="@dimen/padding_left_and_right"
+        app:title="Region" />
+
+    <com.posturedetection.android.widget.ItemGroup
+        android:id="@+id/ig_birthday"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        app:edt_hint_content="Unselected"
+        app:paddingLeft="@dimen/padding_left_and_right"
+        app:title="Birthday" />
+
+</LinearLayout>

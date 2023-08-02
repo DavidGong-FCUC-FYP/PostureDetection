@@ -19,10 +19,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PostureDetection">
         <activity
+            android:name=".EditItemActivity"
+            android:exported="false" />
+        <activity
             android:name=".AccountSettingsActivity"
             android:exported="false" />
         <activity
-            android:name=".persionalInformationActivity"
+            android:name=".PersonalInformationActivity"
             android:exported="false" />
         <activity
             android:name=".HomeActivity"

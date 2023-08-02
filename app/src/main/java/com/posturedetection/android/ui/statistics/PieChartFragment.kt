@@ -1,4 +1,4 @@
-package com.posturedetection.android
+package com.posturedetection.android.ui.statistics
 
 import android.graphics.Color
 import android.os.Bundle
@@ -6,11 +6,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.github.mikephil.charting.data.BarData
-import com.github.mikephil.charting.data.BarDataSet
-import com.github.mikephil.charting.data.BarEntry
+import com.github.mikephil.charting.data.PieData
+import com.github.mikephil.charting.data.PieDataSet
+import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.utils.ColorTemplate
-import com.posturedetection.android.databinding.FragmentBarChartBinding
+import com.posturedetection.android.databinding.FragmentPieChartBinding
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -19,14 +19,14 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [BarChartFragment.newInstance] factory method to
+ * Use the [PieChartFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class BarChartFragment : Fragment() {
+class PieChartFragment : Fragment() {
 
+    private var _binding: FragmentPieChartBinding? = null
 
-    private var _binding: FragmentBarChartBinding? = null
-    val binding get() = _binding!!
+    private val binding get() = _binding!!
 
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -45,36 +45,37 @@ class BarChartFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        _binding = FragmentBarChartBinding.inflate(inflater, container, false)
+        _binding = FragmentPieChartBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val barChart = binding.barChart
-
-        val list: ArrayList<BarEntry> = ArrayList()
-
-        list.add(BarEntry(100f,100f))
-        list.add(BarEntry(101f,200f))
-        list.add(BarEntry(102f,300f))
-        list.add(BarEntry(103f,400f))
-        list.add(BarEntry(104f,500f))
-
-
-        val barDataSet= BarDataSet(list,"List")
-
-        barDataSet.setColors(ColorTemplate.MATERIAL_COLORS,255)
-        barDataSet.valueTextColor= Color.BLACK
-
-        val barData= BarData(barDataSet)
-
-        barChart.setFitBars(true)
-
-        barChart.data= barData
-
-        barChart.description.text= "Bar Chart"
-
-        barChart.animateY(2000)
-
+        val pieChart = binding.pieChart
         // Inflate the layout for this fragment
+
+
+        val list:ArrayList<PieEntry> = ArrayList()
+
+        list.add(PieEntry(100f,"100"))
+        list.add(PieEntry(101f,"101"))
+        list.add(PieEntry(102f,"102"))
+        list.add(PieEntry(103f,"103"))
+        list.add(PieEntry(104f,"104"))
+
+        val pieDataSet= PieDataSet(list,"List")
+
+        pieDataSet.setColors(ColorTemplate.MATERIAL_COLORS,255)
+        pieDataSet.valueTextColor= Color.BLACK
+        pieDataSet.valueTextSize=15f
+
+        val pieData= PieData(pieDataSet)
+
+        pieChart.data= pieData
+
+        pieChart.description.text= "Pie Chart"
+
+        pieChart.centerText="List"
+
+        pieChart.animateY(2000)
+
         return root
     }
 
@@ -85,12 +86,12 @@ class BarChartFragment : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment BarChartFragment.
+         * @return A new instance of fragment PieChartFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            BarChartFragment().apply {
+            PieChartFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)

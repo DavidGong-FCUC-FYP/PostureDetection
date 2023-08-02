@@ -1,0 +1,7 @@
+<litepal>
+    <dbname value="posturedetection_db"/>
+    <version value = "1"/>
+    <list>
+        <mapping class="com.posturedetection.android.data.model.User"/>
+    </list>
+</litepal>

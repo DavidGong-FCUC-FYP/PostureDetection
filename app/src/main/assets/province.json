@@ -1,0 +1,82 @@
+[
+  {
+    "code": "01",
+    "name": "Johor",
+    "province": "01"
+  },
+  {
+    "code": "02",
+    "name": "Kedah",
+    "province": "02"
+  },
+  {
+    "code": "03",
+    "name": "Kelantan",
+    "province": "03"
+  },
+  {
+    "code": "04",
+    "name": "Melaka",
+    "province": "04"
+  },
+  {
+    "code": "05",
+    "name": "Negeri Sembilan",
+    "province": "05"
+  },
+  {
+    "code": "06",
+    "name": "Pahang",
+    "province": "06"
+  },
+  {
+    "code": "07",
+    "name": "Pulau Pinang",
+    "province": "07"
+  },
+  {
+    "code": "08",
+    "name": "Perak",
+    "province": "08"
+  },
+  {
+    "code": "09",
+    "name": "Perlis",
+    "province": "09"
+  },
+  {
+    "code": "10",
+    "name": "Selangor",
+    "province": "10"
+  },
+  {
+    "code": "11",
+    "name": "Terengganu",
+    "province": "11"
+  },
+  {
+    "code": "12",
+    "name": "Sabah",
+    "province": "12"
+  },
+  {
+    "code": "13",
+    "name": "Sarawak",
+    "province": "13"
+  },
+  {
+    "code": "14",
+    "name": "Kuala Lumpur",
+    "province": "14"
+  },
+  {
+    "code": "15",
+    "name": "Labuan",
+    "province": "15"
+  },
+  {
+    "code": "16",
+    "name": "Putrajaya",
+    "province": "16"
+  }
+]

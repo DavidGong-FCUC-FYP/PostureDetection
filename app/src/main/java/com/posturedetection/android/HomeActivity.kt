@@ -125,6 +125,7 @@ class HomeActivity : AppCompatActivity() {
             when (it.itemId) {
                 R.id.navigation_detection -> {
                     // Start the Home activity
+                    finish()
                     startActivity(Intent(this, HomeActivity::class.java))
                     true
                 }
