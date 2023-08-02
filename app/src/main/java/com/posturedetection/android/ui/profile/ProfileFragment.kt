@@ -30,6 +30,7 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
+        auth = FirebaseAuth.getInstance()
         val root: View = binding.root
 
         val gson = Gson()
