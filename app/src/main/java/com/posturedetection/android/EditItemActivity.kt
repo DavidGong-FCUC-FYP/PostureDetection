@@ -55,6 +55,10 @@ class EditItemActivity : AppCompatActivity() {
             setResult(RESULT_OK)
             finish()
         }
+
+        tlTitle.iv_backward.setOnClickListener {
+            finish()
+        }
     }
 
     override fun onDestroy() {

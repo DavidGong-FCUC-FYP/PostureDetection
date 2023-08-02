@@ -14,6 +14,8 @@ import com.google.gson.Gson
 import com.posturedetection.android.PersonalInformationActivity
 import com.posturedetection.android.data.LoginUser
 import com.posturedetection.android.databinding.FragmentProfileBinding
+import com.posturedetection.android.util.PhotoUtils
+import kotlin.math.log
 
 class ProfileFragment : Fragment() {
 
@@ -23,6 +25,8 @@ class ProfileFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
     private lateinit var auth : FirebaseAuth
+
+    private var loginUser: LoginUser = LoginUser.getInstance()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,13 +39,16 @@ class ProfileFragment : Fragment() {
 
         val gson = Gson()
 
-       //sp = getPreferences(MODE_PRIVATE)
-        val sp: SharedPreferences = requireActivity().getSharedPreferences("Login", AppCompatActivity.MODE_PRIVATE)
-        val json: String? = sp.getString("account","")
-        val account: LoginUser = gson.fromJson(json, LoginUser::class.java)
-        Log.d("ProfileFragment", "onCreateView: $account")
-        binding.profileUsername.text = account.name
-        binding.profileEmail.text = account.email
+        //sp = getPreferences(MODE_PRIVATE)
+        val sp: SharedPreferences =
+            requireActivity().getSharedPreferences("Login", AppCompatActivity.MODE_PRIVATE)
+//        val json: String? = sp.getString("account","")
+//        val account: LoginUser = gson.fromJson(json, LoginUser::class.java)
+        //      Log.d("ProfileFragment", "onCreateView: $account")
+        //if (loginUser.portrait != null || loginUser.portrait.size != 0)
+            binding.userImg.setImageBitmap(PhotoUtils().byte2bitmap(loginUser.portrait))
+        binding.profileUsername.text = loginUser.name
+        binding.profileEmail.text = loginUser.email
 
         binding.btnPersonalInformation.setOnClickListener(View.OnClickListener {
             var intent = Intent()

@@ -24,20 +24,21 @@ public class TitleLayout extends LinearLayout {
 
         //设置监听器
         //如果点击back则结束活动
-        iv_backward.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((Activity)getContext()).finish();
-            }
-        });
-
-        //如果点击save则保存数据
-        iv_save.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //保存数据
-            }
-        });
+//        iv_backward.setOnClickListener(new OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                ((Activity)getContext()).finish();
+//            }
+//        });
+//
+//        //如果点击save则保存数据
+//        iv_save.setOnClickListener(new OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                //保存数据
+//
+//            }
+//        });
     }
 
 
@@ -51,5 +52,9 @@ public class TitleLayout extends LinearLayout {
 
     public ImageView getIv_save(){
         return iv_save;
+    }
+
+    public ImageView getIv_backward(){
+        return iv_backward;
     }
 }

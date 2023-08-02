@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var auth : FirebaseAuth
     private lateinit var database : FirebaseDatabase
     private lateinit var googleSignInClient : GoogleSignInClient
-
+    private var loginUser: LoginUser = LoginUser.getInstance()
 
 
 
@@ -82,25 +82,28 @@ class MainActivity : AppCompatActivity() {
         val credential = GoogleAuthProvider.getCredential(account.idToken , null)
         auth.signInWithCredential(credential).addOnCompleteListener {
             if (it.isSuccessful){
+
                 val intent : Intent = Intent(this , HomeActivity::class.java)
 
-                val gson = Gson()
+               // val gson = Gson()
 
-                val sharedPreferences : SharedPreferences = getSharedPreferences("Login" , MODE_PRIVATE)
-                val editor : SharedPreferences.Editor = sharedPreferences.edit()
-                var loginUser: LoginUser =
-                    LoginUser(
-                        account.email.toString(),
-                        account.displayName.toString()
-                    )
-                val userJson = gson.toJson(loginUser)
-                editor.putString("account" , userJson)
-                Log.d("TAG", "updateUI: $userJson")
-
-                editor.commit()
-
-                intent.putExtra("email" , account.email)
-                intent.putExtra("name" , account.displayName)
+               // val sharedPreferences : SharedPreferences = getSharedPreferences("Login" , MODE_PRIVATE)
+               // val editor : SharedPreferences.Editor = sharedPreferences.edit()
+                loginUser.email = account.email.toString()
+                loginUser.name = account.displayName.toString()
+//                var loginUser: LoginUser =
+//                    LoginUser(
+//                        account.email.toString(),
+//                        account.displayName.toString()
+//                    )
+//                val userJson = gson.toJson(loginUser)
+//                editor.putString("account" , userJson)
+//                Log.d("TAG", "updateUI: $userJson")
+//
+//                editor.commit()
+//
+//                intent.putExtra("email" , account.email)
+//                intent.putExtra("name" , account.displayName)
 
                 startActivity(intent)
             }else{

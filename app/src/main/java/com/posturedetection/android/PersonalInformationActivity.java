@@ -68,7 +68,7 @@ public class PersonalInformationActivity extends AppCompatActivity implements Vi
     private OptionsPickerView pvOptions;
 
     private RoundImageView ri_portrati;
-    private Uri imageUri;  //拍照功能的地址
+    private Uri imageUrl;  //拍照功能的地址
     private static final int TAKE_PHOTO = 1;
     private static final int FROM_ALBUMS = 2;
     private PopupWindow popupWindow;
@@ -105,15 +105,27 @@ public class PersonalInformationActivity extends AppCompatActivity implements Vi
         ig_brithday.setOnClickListener(this);
         ll_portrait.setOnClickListener(this);
 
+
+
+        titleLayout.getIv_backward().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         //设置点击保存的逻辑
         titleLayout.getIv_save().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 loginUser.update();
                 mToast.showShort(PersonalInformationActivity.this,"Save Success");
+               //back to previous activity
+                //onDestroy();
                 finish();
             }
         });
+
+        initInfo();
 
     }
 
@@ -121,7 +133,7 @@ public class PersonalInformationActivity extends AppCompatActivity implements Vi
     protected void onDestroy(){
         super.onDestroy();
         //如果是退出则loginUser的数据重新初始化（也就是不保存数据库）
-        loginUser.reinit();
+       // loginUser.reinit();
         ActivityCollector.removeActivity(this);
     }
 
@@ -219,8 +231,9 @@ public class PersonalInformationActivity extends AppCompatActivity implements Vi
                 if(resultCode == RESULT_OK){
                     try {
                         //将拍摄的图片展示并更新数据库
-                        Bitmap bitmap = BitmapFactory.decodeStream((getContentResolver().openInputStream(imageUri)));
+                        Bitmap bitmap = BitmapFactory.decodeStream((getContentResolver().openInputStream(imageUrl)));
                         ri_portrati.setImageBitmap(bitmap);
+                        loginUser.setImageUrl(imageUrl.toString());
                         loginUser.setPortrait(photoUtils.bitmap2byte(bitmap));
                     }catch (FileNotFoundException e){
                         e.printStackTrace();
@@ -241,9 +254,10 @@ public class PersonalInformationActivity extends AppCompatActivity implements Vi
                     //将拍摄的图片展示并更新数据库
                     Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
                     ri_portrati.setImageBitmap(bitmap);
+                    loginUser.setImageUrl(imagePath);
                     loginUser.setPortrait(photoUtils.bitmap2byte(bitmap));
                 }else{
-                    Log.d("food","没有找到图片");
+                    Log.d("Posture Detection","Not get image");
                 }
                 break;
             //如果是编辑名字，则修改展示
@@ -338,10 +352,10 @@ public class PersonalInformationActivity extends AppCompatActivity implements Vi
             @Override
             public void onClick(View view) {
                 if(popupWindow != null && popupWindow.isShowing()) {
-                    imageUri = photoUtils.take_photo_util(PersonalInformationActivity.this, "com.posturedetection.android.fileprovider", "output_image.jpg");
+                    imageUrl = photoUtils.take_photo_util(PersonalInformationActivity.this, "com.posturedetection.android.fileprovider", "output_image.jpg");
                     //调用相机，拍摄结果会存到imageUri也就是outputImage中
                     Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-                    intent.putExtra(EXTRA_OUTPUT, imageUri);
+                    intent.putExtra(EXTRA_OUTPUT, imageUrl);
                     startActivityForResult(intent, TAKE_PHOTO);
                     //去除选择框
                     popupWindow.dismiss();

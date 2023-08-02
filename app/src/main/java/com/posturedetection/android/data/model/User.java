@@ -24,10 +24,19 @@ public class User extends LitePalSupport implements Comparable<User> {
     private String password;
     private Integer remember;
     private byte[] portrait;
+
+    private String imageUrl;
     private String region;
     private String gender;
     private String birthday;
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 
     //check是传入未MD5加密的
     public boolean checkPassword(String str){
@@ -145,6 +154,7 @@ public class User extends LitePalSupport implements Comparable<User> {
                 ", password='" + password + '\'' +
                 ", remember=" + remember +
                 ", region='" + region + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
                 ", gender='" + gender + '\'' +
                 ", birthday='" + birthday + '\'' +
                 '}';
