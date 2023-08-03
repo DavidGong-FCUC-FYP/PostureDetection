@@ -88,23 +88,6 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         ivEye.setOnClickListener(this)
         ivMoreAccount.setOnClickListener(this)
 
-        if (intent.getBooleanExtra("first_in", false)) {
-            Log.d("food", "first_in")
-            val users = LitePal.findAll(User::class.java)
-            for (u in users) {
-                if (u.remember == 1) {
-                    //登入并存入LoginUser
-                    LoginUser.getInstance().login(u)
-                    //启动主界面
-                    val intent1 = Intent(this, HomeActivity::class.java)
-                    startActivity(intent1)
-                    toastUtils.showShort(this, R.string.welcome.toString())
-                    break
-                }
-            }
-        }
-
-
 
         val spUserEmail = sp.getString("account" , "")
         Log.d("MainActivity", "onCreate: $spUserEmail")
