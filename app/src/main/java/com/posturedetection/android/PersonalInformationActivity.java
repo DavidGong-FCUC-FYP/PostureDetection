@@ -54,6 +54,8 @@ import java.util.Calendar;
 import java.util.Date;
 
 
+
+
 public class PersonalInformationActivity extends AppCompatActivity implements View.OnClickListener{
 
     private ItemGroup ig_id,ig_name,ig_email,ig_phone,ig_gender,ig_region,ig_brithday;
@@ -84,6 +86,9 @@ public class PersonalInformationActivity extends AppCompatActivity implements Vi
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_persional_information);
+
+        ActivityCollector.addActivity(this);
+
         initOptionData();
 
         ig_id = (ItemGroup)findViewById(R.id.ig_id);
@@ -118,6 +123,7 @@ public class PersonalInformationActivity extends AppCompatActivity implements Vi
             @Override
             public void onClick(View v) {
                 loginUser.update();
+                setResult(RESULT_OK);
                 mToast.showShort(PersonalInformationActivity.this,"Save Success");
                //back to previous activity
                 //onDestroy();
@@ -233,7 +239,6 @@ public class PersonalInformationActivity extends AppCompatActivity implements Vi
                         //将拍摄的图片展示并更新数据库
                         Bitmap bitmap = BitmapFactory.decodeStream((getContentResolver().openInputStream(imageUrl)));
                         ri_portrati.setImageBitmap(bitmap);
-                        loginUser.setImageUrl(imageUrl.toString());
                         loginUser.setPortrait(photoUtils.bitmap2byte(bitmap));
                     }catch (FileNotFoundException e){
                         e.printStackTrace();
@@ -254,7 +259,6 @@ public class PersonalInformationActivity extends AppCompatActivity implements Vi
                     //将拍摄的图片展示并更新数据库
                     Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
                     ri_portrati.setImageBitmap(bitmap);
-                    loginUser.setImageUrl(imagePath);
                     loginUser.setPortrait(photoUtils.bitmap2byte(bitmap));
                 }else{
                     Log.d("Posture Detection","Not get image");
@@ -356,7 +360,7 @@ public class PersonalInformationActivity extends AppCompatActivity implements Vi
                     //调用相机，拍摄结果会存到imageUri也就是outputImage中
                     Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
                     intent.putExtra(EXTRA_OUTPUT, imageUrl);
-                    startActivityForResult(intent, TAKE_PHOTO);
+                    startActivityIfNeeded(intent, TAKE_PHOTO);
                     //去除选择框
                     popupWindow.dismiss();
                 }

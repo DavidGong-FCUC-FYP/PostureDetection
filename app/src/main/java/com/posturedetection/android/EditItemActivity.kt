@@ -22,13 +22,11 @@ class EditItemActivity : AppCompatActivity() {
 
     private lateinit var etEditContent : EditText
 
-
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityEditItemBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        ActivityCollector.addActivity(this)
 
         tlTitle = binding.tlTitle
         etEditContent = binding.etEditContent

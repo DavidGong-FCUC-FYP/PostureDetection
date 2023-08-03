@@ -22,6 +22,13 @@ public class TitleLayout extends LinearLayout {
         iv_save = (ImageView) bar_title.findViewById(R.id.iv_save);
         tv_title = (TextView) bar_title.findViewById(R.id.tv_title);
 
+        iv_backward.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((Activity)getContext()).finish();
+            }
+        });
+
         //设置监听器
         //如果点击back则结束活动
 //        iv_backward.setOnClickListener(new OnClickListener() {

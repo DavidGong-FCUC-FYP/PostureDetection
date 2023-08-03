@@ -19,16 +19,6 @@ public class LoginUser extends Application {
     private String password;
     private byte[] portrait;
 
-    private String imageUrl;
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
     private String region;
     private String gender;
     private String birthday;
@@ -51,17 +41,16 @@ public class LoginUser extends Application {
     }
 
     public void update(){
-       // if(_user.getId() == this.id){
-//            _user.setName(this.name);
-//            _user.setEmail(this.email);
-//            _user.setPhone(this.phone);
-//            _user.setPortrait(this.portrait);
-//            _user.setGender(this.gender);
-//            _user.setRegion(this.region);
-//            _user.setBirthday(this.birthday);
-//            _user.setImageUrl(this.imageUrl);
-      //      _user.update(_user.getId());
-      //  }
+        if(_user.getId() == this.id){
+            _user.setName(this.name);
+            _user.setEmail(this.email);
+            _user.setPhone(this.phone);
+            _user.setPortrait(this.portrait);
+            _user.setGender(this.gender);
+            _user.setRegion(this.region);
+            _user.setBirthday(this.birthday);
+            _user.update(_user.getId());
+        }
     }
 
     //reinit
@@ -74,7 +63,6 @@ public class LoginUser extends Application {
         login_user.portrait = _user.getPortrait();
         login_user.gender = _user.getGender();
         login_user.region = _user.getRegion();
-        login_user.imageUrl = _user.getImageUrl();
         login_user.birthday = _user.getBirthday();
     }
 
@@ -85,10 +73,22 @@ public class LoginUser extends Application {
         login_user.email = null;
         login_user.phone = null;
         login_user.portrait = null;
-        login_user.imageUrl = null;
         login_user.region = null;
         login_user.gender = null;
         login_user.birthday = null;
+        return true;
+    }
+
+    public boolean login(User user) {
+        _user = user;
+        login_user.id = user.getId();
+        login_user.name = user.getName();
+        login_user.email = user.getEmail();
+        login_user.phone = user.getPhone();
+        login_user.portrait = user.getPortrait();
+        login_user.region = user.getRegion();
+        login_user.gender = user.getGender();
+        login_user.birthday = user.getBirthday();
         return true;
     }
 

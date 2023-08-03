@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="true">PostureDetection</string>
+    <string name="title_detection" translatable="true">检测</string>
+    <string name="title_statistics">统计</string>
+    <string name="title_profile">个人资料</string>
+    <string name="title_activity_home">主页</string>
+
+    <string name="tfe_pe_request_permission">此应用需要相机权限。</string>
+    <string name="tfe_pe_tv_score">得分：%.2f</string>
+    <string name="tfe_pe_tv_model">模型：MoveNet Thunder</string>
+    <string name="tfe_pe_tv_fps">帧率： %d</string>
+    <string name="tfe_pe_tv_debug">调试： %s</string>
+    <string name="tfe_pe_tv_device">设备： </string>
+    <string name="tfe_pe_tv_camera">相机： </string>
+
+    <!--    注册登录-->
+    <string name="account_name">电子邮件</string>
+    <string name="password">密码</string>
+    <string name="new_password">新密码</string>
+    <string name="repeat_password">重复密码</string>
+    <string name="register">注册</string>
+    <string name="login">登录</string>
+    <string name="remember">记住我</string>
+
+    <!--others-->
+    <string name="user_already_exist">用户已存在</string>
+    <!--注册成功-->
+    <string name="register_success">注册成功</string>
+    <!--登录失败-->
+    <string name="login_fail">登录失败</string>
+    <!--账户登录成功-->
+    <string name="login_success">登录成功</string>
+    <!--欢迎-->
+    <string name="welcome">欢迎回来</string>
+
+
+    <string-array name="tfe_pe_camera_name">
+        <item>后置摄像头</item>
+        <item>前置摄像头</item>
+    </string-array>
+</resources>

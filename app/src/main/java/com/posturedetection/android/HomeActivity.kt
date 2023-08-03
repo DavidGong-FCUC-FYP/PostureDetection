@@ -25,10 +25,6 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
 import com.posturedetection.android.camera.CameraSource
 import com.posturedetection.android.data.Camera
 import com.posturedetection.android.data.Device
@@ -38,6 +34,7 @@ import com.posturedetection.android.ml.MoveNet
 import com.posturedetection.android.ml.PoseClassifier
 import com.posturedetection.android.ui.profile.ProfileFragment
 import com.posturedetection.android.ui.statistics.StatisticsFragment
+import com.posturedetection.android.util.ActivityCollector
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -119,6 +116,7 @@ class HomeActivity : AppCompatActivity() {
 
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        ActivityCollector.addActivity(this)
 
         val navView: BottomNavigationView = binding.navView
         navView.setOnItemSelectedListener {
@@ -143,10 +141,8 @@ class HomeActivity : AppCompatActivity() {
 
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         tvScore = findViewById(R.id.tvScore)
-
         /** 用来显示 Debug 信息 */
         tvDebug = findViewById(R.id.tvDebug)
-
         /** 用来显示当前坐姿状态 */
         ivStatus = findViewById(R.id.ivStatus)
 

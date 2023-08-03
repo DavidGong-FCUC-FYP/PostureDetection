@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/values-ms/strings.xml -->
+<resources>
+    <string name="app_name">PostureDetection</string>
+    <string name="title_detection">Detection</string>
+    <string name="title_statistics">Statistics</string>
+    <string name="title_profile">Profile</string>
+    <string name="title_activity_home">HomeActivity</string>
+
+    <string name="tfe_pe_request_permission">Aplikasi ini memerlukan izin kamera.</string>
+    <string name="tfe_pe_tv_score">Skor: %.2f</string>
+    <string name="tfe_pe_tv_model">Model: MoveNet Thunder</string>
+    <string name="tfe_pe_tv_fps">Fps: %d</string>
+    <string name="tfe_pe_tv_debug">DEBUG: %s</string>
+    <string name="tfe_pe_tv_device">Peranti: </string>
+    <string name="tfe_pe_tv_camera">Kamera: </string>
+
+    <!--    注册登录-->
+    <string name="account_name">Emel</string>
+    <string name="password">Kata Laluan</string>
+    <string name="new_password">Kata Laluan Baru</string>
+    <string name="repeat_password">Ulang Kata Laluan</string>
+    <string name="register">Daftar</string>
+    <string name="login">Log Masuk</string>
+    <string name="remember">Ingat Saya</string>
+
+    <!--others-->
+    <string name="user_already_exist">Pengguna telah wujud</string>
+    <!--Pendaftaran berjaya-->
+    <string name="register_success">Pendaftaran berjaya</string>
+    <!-- Gagal log masuk -->
+    <string name="login_fail">Gagal log masuk</string>
+    <!-- Berjaya log masuk akaun -->
+    <string name="login_success">Berjaya log masuk</string>
+    <!-- Selamat Datang -->
+    <string name="welcome">Selamat Datang</string>
+
+    <string-array name="tfe_pe_camera_name">
+        <item>Belakang</item>
+        <item>Hadapan</item>
+    </string-array>
+</resources>

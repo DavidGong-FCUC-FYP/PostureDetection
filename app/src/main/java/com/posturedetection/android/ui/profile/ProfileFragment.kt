@@ -36,17 +36,7 @@ class ProfileFragment : Fragment() {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         auth = FirebaseAuth.getInstance()
         val root: View = binding.root
-
-        val gson = Gson()
-
-        //sp = getPreferences(MODE_PRIVATE)
-        val sp: SharedPreferences =
-            requireActivity().getSharedPreferences("Login", AppCompatActivity.MODE_PRIVATE)
-//        val json: String? = sp.getString("account","")
-//        val account: LoginUser = gson.fromJson(json, LoginUser::class.java)
-        //      Log.d("ProfileFragment", "onCreateView: $account")
-        //if (loginUser.portrait != null || loginUser.portrait.size != 0)
-            binding.userImg.setImageBitmap(PhotoUtils().byte2bitmap(loginUser.portrait))
+        binding.userImg.setImageBitmap(PhotoUtils().byte2bitmap(loginUser.portrait))
         binding.profileUsername.text = loginUser.name
         binding.profileEmail.text = loginUser.email
 
