@@ -17,7 +17,9 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/logo_posturedetection_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.PostureDetection">
+        android:theme="@style/Theme.PostureDetection"
+        android:name="org.litepal.LitePalApplication">
+
         <activity
             android:name=".EditItemActivity"
             android:exported="false" />

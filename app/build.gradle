@@ -39,10 +39,14 @@ android {
 }
 
 dependencies {
+
+    implementation project(':pickerview')
+    implementation project(':wheelview')
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
-    implementation 'com.contrarywind:Android-PickerView:4.1.9'
-    implementation 'org.litepal.android:core:2.0.0'
-    implementation 'com.lqr.optionitemview:library:1.0.7'
+    //implementation 'com.contrarywind:Android-PickerView:4.1.9'
+    implementation 'org.litepal.android:core:3.0.0'
+    implementation 'org.litepal.android:kotlin:3.0.0'
+    //implementation 'com.lqr.optionitemview:library:1.0.7'
 
     implementation 'androidx.core:core-ktx:1.8.0'
     implementation 'androidx.activity:activity-ktx:1.4.0'

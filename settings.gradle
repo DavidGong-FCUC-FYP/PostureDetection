@@ -16,4 +16,4 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "PostureDetection"
-include ':app'
+include ':app', ':pickerview', ':wheelview'
