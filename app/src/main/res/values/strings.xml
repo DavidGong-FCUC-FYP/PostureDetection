@@ -35,6 +35,29 @@
     <string name="welcome">Welcome Back</string>
 
 
+    <!--account setting toggle Buttom TV name -->
+    <!--AI Device-->
+    <string name="ai_device">AI Device</string>
+    <!--theme appearance-->
+    <string name="theme_appearance">Theme Appearance</string>
+    <!--white and dark-->
+    <string name="white">White</string>
+    <string name="dark">Dark</string>
+    <!--language-->
+    <string name="language">Language</string>
+    <!--Chinese and English and Malay-->
+    <string name="chinese">Chinese</string>
+    <string name="english">English</string>
+    <string name="malay">Malay</string>
+    <!--camera-->
+    <string name="camera">Camera</string>
+    <!--front and back-->
+    <string name="front">Front</string>
+    <string name="back">Back</string>
+    <!--Pomodoro Alarm-->
+    <string name="pomodoro_alarm">Pomodoro Alarm</string>
+
+
     <string-array name="tfe_pe_device_name" translatable="false">
         <item>CPU</item>
         <item>GPU</item>

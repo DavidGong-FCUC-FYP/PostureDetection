@@ -4,16 +4,142 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    app:divider="@drawable/divider"
+    app:showDividers="middle"
     tools:context=".AccountSettingsActivity">
 
     <com.posturedetection.android.widget.TitleLayout
         android:id="@+id/tl_title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"/>
 
-    </com.posturedetection.android.widget.TitleLayout>
+    <LinearLayout
+        android:layout_marginTop="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp">
 
+        <TextView
+            android:id="@+id/tvAIDevice"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize="@dimen/pickerview_textsize"
+            android:text="@string/ai_device" />
+
+        <com.savvyapps.togglebuttonlayout.ToggleButtonLayout
+            android:id="@+id/tb_ai_device"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="16dp"
+            app:menu="@menu/toggle_button_device" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/tv_theme_appearance"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize="@dimen/pickerview_textsize"
+            android:text="@string/theme_appearance" />
+
+        <com.savvyapps.togglebuttonlayout.ToggleButtonLayout
+            android:id="@+id/tb_theme_appearance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="16dp"
+            app:menu="@menu/toggle_button_theme_appearance" />
+    </LinearLayout>
+<!--camera-->
+    <LinearLayout
+        android:layout_marginTop="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/tv_camera"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize="@dimen/pickerview_textsize"
+            android:text="@string/camera" />
+
+        <com.savvyapps.togglebuttonlayout.ToggleButtonLayout
+            android:id="@+id/tb_camera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="16dp"
+            app:menu="@menu/toggle_button_camera" />
+    </LinearLayout>
+
+    <!--language-->
+    <LinearLayout
+        android:layout_marginTop="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/tv_language"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize="@dimen/pickerview_textsize"
+            android:text="@string/language" />
+
+        <com.savvyapps.togglebuttonlayout.ToggleButtonLayout
+            android:id="@+id/tb_language"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="16dp"
+            app:menu="@menu/toggle_button_language" />
+
+    </LinearLayout>
+
+
+    <!--pomodoro_alarm-->
+
+    <LinearLayout
+        android:id="@+id/ll_pomodoro_alarm"
+        android:layout_marginTop="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/tv_pomodoro_alarm"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize="@dimen/pickerview_textsize"
+            android:text="@string/pomodoro_alarm" />
+
+        <ImageView
+            android:id="@+id/jt_right_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="8dp"
+            android:padding="8dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/arrow_forward" />
+
+    </LinearLayout>
 
 </LinearLayout>
-
-

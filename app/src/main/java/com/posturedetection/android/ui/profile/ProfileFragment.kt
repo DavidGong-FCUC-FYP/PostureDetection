@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.Gson
+import com.posturedetection.android.AccountSettingsActivity
 import com.posturedetection.android.PersonalInformationActivity
 import com.posturedetection.android.data.LoginUser
 import com.posturedetection.android.databinding.FragmentProfileBinding
@@ -47,8 +48,15 @@ class ProfileFragment : Fragment() {
 
         binding.btnPersonalInformation.setOnClickListener(View.OnClickListener {
             var intent = Intent()
+            intent.setClass(requireActivity(), PersonalInformationActivity::class.java)
+            startActivity(intent)
 
-            startActivity(requireActivity().intent.setClass(requireActivity(), PersonalInformationActivity::class.java))
+        })
+
+        binding.btnAccountSettings.setOnClickListener(View.OnClickListener {
+            var intent = Intent()
+            intent.setClass(requireActivity(), AccountSettingsActivity::class.java)
+            startActivity(intent)
         })
 
         binding.signOut.setOnClickListener {

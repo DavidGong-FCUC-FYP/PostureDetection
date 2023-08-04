@@ -34,6 +34,25 @@
     <!--欢迎-->
     <string name="welcome">欢迎回来</string>
 
+    <string name="ai_device">AI处理器</string>
+    <!--theme appearance-->
+    <string name="theme_appearance">主题外观</string>
+    <!--white and dark-->
+    <string name="white">白色</string>
+    <string name="dark">暗色</string>
+    <!--language-->
+    <string name="language">语言</string>
+    <!--Chinese and English and Malay-->
+    <string name="chinese">中文</string>
+    <string name="english">英文</string>
+    <string name="malay">马来文</string>
+    <!--camera-->
+    <string name="camera">相机</string>
+    <!--front and back-->
+    <string name="front">前置</string>
+    <string name="back">后置</string>
+    <!--Pomodoro Alarm-->
+    <string name="pomodoro_alarm">番茄闹钟</string>
 
     <string-array name="tfe_pe_camera_name">
         <item>后置摄像头</item>

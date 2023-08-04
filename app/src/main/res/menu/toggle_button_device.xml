@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/toggle_cpu"
+        android:title="CPU"
+        />
+
+    <item
+        android:id="@+id/toggle_gpu"
+        android:title="GPU" />
+
+    <item
+        android:id="@+id/toggle_nnapi"
+        android:title="NNAPI" />
+</menu>

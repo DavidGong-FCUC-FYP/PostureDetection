@@ -35,6 +35,29 @@
     <!-- Selamat Datang -->
     <string name="welcome">Selamat Datang</string>
 
+    <string name="ai_device">Pemproses AI</string>
+
+    <!--theme appearance-->
+    <string name="theme_appearance">Rupa Tema</string>
+    <!--white and dark-->
+    <string name="white">Putih</string>
+    <string name="dark">Gelap</string>
+    <!--language-->
+    <string name="language">Bahasa</string>
+    <!--Chinese and English and Malay-->
+    <string name="chinese">Cina</string>
+    <string name="english">Inggeris</string>
+    <string name="malay">Melayu</string>
+    <!--camera-->
+    <string name="camera">Kamera</string>
+    <!--front and back-->
+    <string name="front">Hadapan</string>
+    <string name="back">Belakang</string>
+    <!--Pomodoro Alarm-->
+    <string name="pomodoro_alarm">Pomodoro Penggera</string>
+
+
+
     <string-array name="tfe_pe_camera_name">
         <item>Belakang</item>
         <item>Hadapan</item>
