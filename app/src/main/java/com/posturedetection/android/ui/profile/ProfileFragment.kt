@@ -27,12 +27,17 @@ class ProfileFragment : Fragment() {
     private lateinit var auth : FirebaseAuth
 
     private var loginUser: LoginUser = LoginUser.getInstance()
+    override fun onResume() {
+        super.onResume()
+        binding.userImg.setImageBitmap(PhotoUtils().byte2bitmap(loginUser.portrait))
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         auth = FirebaseAuth.getInstance()
         val root: View = binding.root
