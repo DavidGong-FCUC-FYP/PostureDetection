@@ -6,6 +6,15 @@
     <string name="title_profile">Profile</string>
     <string name="title_activity_home">HomeActivity</string>
 
+    <!--Persoanl Information-->
+    <string name="personal_information">Personal Information</string>
+    <!--Account Settings-->
+    <string name="account_settings">Account Settings</string>
+    <!--Download Report-->
+    <string name="download_report">Download Report</string>
+    <!--Logout-->
+    <string name="logout">Logout</string>
+
     <string name="tfe_pe_request_permission">This app needs camera permission.</string>
     <string name="tfe_pe_tv_score">Score: %.2f</string>
     <string name="tfe_pe_tv_model">Model: MoveNet Thunder</string>
@@ -22,6 +31,12 @@
     <string name="register">Register</string>
     <string name="login">Login</string>
     <string name="remember">Remember Me</string>
+    <!--Google Login-->
+    <string name="google_login">Google Login</string>
+    <!--please input your password-->
+    <string name="please_input_email">Please input your email</string>
+    <!--please input your password-->
+    <string name="please_input_password">Please input your password</string>
 
     <!--Toast-->
     <string name="user_already_exist">User already exists</string>

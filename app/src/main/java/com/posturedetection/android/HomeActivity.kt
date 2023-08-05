@@ -21,7 +21,9 @@ import android.widget.Toolbar
 import androidx.activity.result.contract.ActivityResultContracts
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
+import androidx.core.os.LocaleListCompat
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -136,6 +138,20 @@ class HomeActivity : AppCompatActivity() {
                     0 -> selectedCamera = Camera.BACK
                     1 -> selectedCamera = Camera.FRONT
                 }
+                var language = "en"
+                when(accountSettings.language){
+                    0 -> {
+                        language = "en"
+                    }
+                    1 -> {
+                        language = "zh"
+                    }
+                    2 -> {
+                        language = "ms-rMY"
+                    }
+                }
+                val locales = LocaleListCompat.forLanguageTags(language)
+                AppCompatDelegate.setApplicationLocales(locales)
             }
         }
 

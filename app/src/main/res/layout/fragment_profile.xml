@@ -101,7 +101,7 @@
                         android:drawableStart="@drawable/ic_3"
                         android:drawablePadding="20dp"
                         android:paddingStart="20dp"
-                        android:text="Persoanl Information"
+                        android:text="@string/personal_information"
                         android:textAlignment="viewStart"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -120,28 +120,28 @@
                         android:drawableStart="@drawable/ic_1"
                         android:drawablePadding="20dp"
                         android:paddingStart="20dp"
-                        android:text="Account Settings"
+                        android:text="@string/account_settings"
                         android:textAlignment="viewStart"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/btn_download_report"
-                        android:layout_width="match_parent"
-                        android:layout_height="60dp"
-                        android:layout_marginStart="32dp"
-                        android:layout_marginTop="10dp"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        style="@android:style/Widget.Button"
-                        android:layout_marginEnd="32dp"
-                        android:layout_marginBottom="10dp"
-                        android:background="@drawable/btn_background_1"
-                        android:drawableStart="@drawable/ic_2"
-                        android:drawablePadding="20dp"
-                        android:paddingStart="20dp"
-                        android:text="Download Report"
-                        android:textAlignment="viewStart" />
+<!--                    <androidx.appcompat.widget.AppCompatButton-->
+<!--                        android:id="@+id/btn_download_report"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="60dp"-->
+<!--                        android:layout_marginStart="32dp"-->
+<!--                        android:layout_marginTop="10dp"-->
+<!--                        android:textSize="18sp"-->
+<!--                        android:textStyle="bold"-->
+<!--                        style="@android:style/Widget.Button"-->
+<!--                        android:layout_marginEnd="32dp"-->
+<!--                        android:layout_marginBottom="10dp"-->
+<!--                        android:background="@drawable/btn_background_1"-->
+<!--                        android:drawableStart="@drawable/ic_2"-->
+<!--                        android:drawablePadding="20dp"-->
+<!--                        android:paddingStart="20dp"-->
+<!--                        android:text="@string/download_report"-->
+<!--                        android:textAlignment="viewStart" />-->
 
 
                     <androidx.appcompat.widget.AppCompatButton
@@ -153,7 +153,7 @@
                         android:layout_marginEnd="32dp"
                         android:layout_marginStart="32dp"
                         android:layout_marginTop="16dp"
-                        android:text="Sign Out"
+                        android:text="@string/logout"
                         android:textColor="#FFFFFF"
                         android:textStyle="bold"
                         android:textSize="18sp"/>

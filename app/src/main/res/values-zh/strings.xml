@@ -6,6 +6,15 @@
     <string name="title_profile">个人资料</string>
     <string name="title_activity_home">主页</string>
 
+    <!--Persoanl Information-->
+    <string name="personal_information">个人信息</string>
+    <!--Account Settings-->
+    <string name="account_settings">账户设置</string>
+    <!--Download Report-->
+    <string name="download_report">下载报告</string>
+    <!--Logout-->
+    <string name="logout">登出</string>
+
     <string name="tfe_pe_request_permission">此应用需要相机权限。</string>
     <string name="tfe_pe_tv_score">得分：%.2f</string>
     <string name="tfe_pe_tv_model">模型：MoveNet Thunder</string>
@@ -22,6 +31,12 @@
     <string name="register">注册</string>
     <string name="login">登录</string>
     <string name="remember">记住我</string>
+    <!--Google Login-->
+    <string name="google_login">谷歌登录</string>
+    <!--please input your password-->
+    <string name="please_input_email">请输入您的电子邮件</string>
+    <!--please input your password-->
+    <string name="please_input_password">请输入您的密码</string>
 
     <!--Toast-->
     <string name="user_already_exist">用户已存在</string>

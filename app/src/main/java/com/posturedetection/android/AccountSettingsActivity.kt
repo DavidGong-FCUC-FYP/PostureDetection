@@ -2,8 +2,12 @@ package com.posturedetection.android
 
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SwitchCompat
+import androidx.core.os.LocaleListCompat
+import com.google.android.material.button.MaterialButtonToggleGroup
 import com.google.gson.Gson
 import com.posturedetection.android.data.LoginUser
 import com.posturedetection.android.data.model.AccountSettings
@@ -11,6 +15,7 @@ import com.posturedetection.android.databinding.ActivityAccountSettingsBinding
 import com.posturedetection.android.util.ToastUtils
 import com.posturedetection.android.widget.TitleLayout
 import com.savvyapps.togglebuttonlayout.ToggleButtonLayout
+import java.util.Locale
 
 class AccountSettingsActivity : AppCompatActivity() {
 
@@ -18,14 +23,13 @@ class AccountSettingsActivity : AppCompatActivity() {
 
     private lateinit var titleLayout: TitleLayout
 
-    private lateinit var tbAIDevice: ToggleButtonLayout
-    private lateinit var tbThemeAppearance: ToggleButtonLayout
-    private lateinit var tbCamera: ToggleButtonLayout
-    private lateinit var tbLanguage: ToggleButtonLayout
+    private lateinit var mbtgAIDevice: MaterialButtonToggleGroup
+    private lateinit var mbtgThemeAppearance: MaterialButtonToggleGroup
+    private lateinit var mbtgCamera: MaterialButtonToggleGroup
+    private lateinit var mbtgLanguage: MaterialButtonToggleGroup
     private lateinit var ssPomoTimer: SwitchCompat
 
-    //ToastUtils
-    private lateinit var toastUtils: ToastUtils
+
 
     //AccountSettings
     private var accountSettings: AccountSettings = AccountSettings(0, 0, 0, 0, false)
@@ -45,10 +49,10 @@ class AccountSettingsActivity : AppCompatActivity() {
         var gson = Gson()
         titleLayout.setTextView_title("Account Settings")
 
-        tbAIDevice = binding.tbAiDevice
-        tbThemeAppearance = binding.tbThemeAppearance
-        tbCamera = binding.tbCamera
-        tbLanguage = binding.tbLanguage
+        mbtgAIDevice = binding.mbtgAiDevice
+        mbtgThemeAppearance = binding.mbtgThemeAppearance
+        mbtgCamera = binding.mbtgCamera
+        mbtgLanguage = binding.mbtgLanguage
         ssPomoTimer = binding.ssPomoTimer
 
 
@@ -58,36 +62,59 @@ class AccountSettingsActivity : AppCompatActivity() {
             //from sp to get AccountSettings
             accountSettings = gson.fromJson(account_settings_json, AccountSettings::class.java)
             if (accountSettings != null) {
-                tbAIDevice.toggles[accountSettings.aiDevice].isSelected = true
-                tbThemeAppearance.toggles[accountSettings.themeAppearance].isSelected = true
-                tbCamera.toggles[accountSettings.camera].isSelected = true
-                tbLanguage.toggles[accountSettings.language].isSelected = true
+                mbtgAIDevice.check(mbtgAIDevice.getChildAt(accountSettings.aiDevice).id)
+                mbtgThemeAppearance.check(mbtgThemeAppearance.getChildAt(accountSettings.themeAppearance).id)
+                mbtgCamera.check(mbtgCamera.getChildAt(accountSettings.camera).id)
+                mbtgLanguage.check(mbtgLanguage.getChildAt(accountSettings.language).id)
                 ssPomoTimer.isChecked = accountSettings.pomoTimer
             }
         }
 
 
-        tbAIDevice.onToggledListener = { toggleButtonLayout, toggle, selected ->
-            if (selected) {
-                accountSettings.aiDevice = toggleButtonLayout.toggles.indexOf(toggle)
+        mbtgAIDevice.addOnButtonCheckedListener { group, checkedId, isChecked ->
+            if (isChecked) {
+                accountSettings.aiDevice = group.indexOfChild(group.findViewById(checkedId))
             }
         }
 
-        tbThemeAppearance.onToggledListener = { toggleButtonLayout, toggle, selected ->
-            if (selected) {
-                accountSettings.themeAppearance = toggleButtonLayout.toggles.indexOf(toggle)
+        mbtgThemeAppearance.addOnButtonCheckedListener { group, checkedId, isChecked ->
+            if (isChecked) {
+                accountSettings.themeAppearance = group.indexOfChild(group.findViewById(checkedId))
+                when (accountSettings.themeAppearance) {
+                    0 -> {
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                    }
+                    1 -> {
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                    }
+                }
             }
         }
 
-        tbCamera.onToggledListener = { toggleButtonLayout, toggle, selected ->
-            if (selected) {
-                accountSettings.camera = toggleButtonLayout.toggles.indexOf(toggle)
+        mbtgCamera.addOnButtonCheckedListener { group, checkedId, isChecked ->
+            if (isChecked) {
+                accountSettings.camera = group.indexOfChild(group.findViewById(checkedId))
             }
         }
 
-        tbLanguage.onToggledListener = { toggleButtonLayout, toggle, selected ->
-            if (selected) {
-                accountSettings.language = toggleButtonLayout.toggles.indexOf(toggle)
+
+        mbtgLanguage.addOnButtonCheckedListener { group, checkedId, isChecked ->
+            if (isChecked) {
+                accountSettings.language = group.indexOfChild(group.findViewById(checkedId))
+                var language = "en"
+                when(accountSettings.language){
+                    0 -> {
+                        language = "en"
+                    }
+                    1 -> {
+                        language = "zh"
+                    }
+                    2 -> {
+                        language = "ms-rMY"
+                    }
+                }
+                val locales = LocaleListCompat.forLanguageTags(language)
+                AppCompatDelegate.setApplicationLocales(locales)
             }
         }
 
@@ -97,8 +124,13 @@ class AccountSettingsActivity : AppCompatActivity() {
 
         titleLayout.iv_save.setOnClickListener {
             sp.edit().putString("account_settings", gson.toJson(accountSettings)).apply()
-            toastUtils.showShort(this, R.string.save_success.toString())
+            //show Toast
+            Toast.makeText(this, R.string.save_success, Toast.LENGTH_SHORT).show()
             finish()
         }
     }
+
+
+
+
 }
