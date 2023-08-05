@@ -5,6 +5,7 @@ import static android.provider.MediaStore.EXTRA_OUTPUT;
 import android.Manifest;
 import android.app.ActionBar;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -21,8 +22,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.os.LocaleListCompat;
 
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
@@ -33,7 +36,9 @@ import com.bigkoo.pickerview.view.TimePickerView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.posturedetection.android.data.LoginUser;
+import com.posturedetection.android.data.model.AccountSettings;
 import com.posturedetection.android.util.ActivityCollector;
+import com.posturedetection.android.util.ChangeLanguageUtil;
 import com.posturedetection.android.util.CityBean;
 import com.posturedetection.android.util.PhotoUtils;
 import com.posturedetection.android.util.ProvinceBean;
@@ -82,10 +87,15 @@ public class PersonalInformationActivity extends AppCompatActivity implements Vi
 
     private Intent intent;
 
+    private SharedPreferences sp;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_persional_information);
+//        sp = getSharedPreferences("account_settings", MODE_PRIVATE);
+//        String account_settings_json = sp.getString("account_settings", null);
+//        setAppLocaleFromJson(account_settings_json);
 
         ActivityCollector.addActivity(this);
 
@@ -394,5 +404,30 @@ public class PersonalInformationActivity extends AppCompatActivity implements Vi
                 }
             }
         });
+    }
+
+
+    private void setAppLocaleFromJson(String accountSettingsJson) {
+        if (accountSettingsJson != null) {
+            Gson gson = new Gson();
+            AccountSettings accountSettings = gson.fromJson(accountSettingsJson, AccountSettings.class);
+            if (accountSettings != null) {
+                String language = "en";
+                switch (accountSettings.getLanguage()) {
+                    case 0:
+                        language = "en";
+                        break;
+                    case 1:
+                        language = "zh";
+                        break;
+                    case 2:
+                        language = "ms";
+                        break;
+                }
+
+                LocaleListCompat locales = LocaleListCompat.forLanguageTags(language);
+                AppCompatDelegate.setApplicationLocales(locales);
+            }
+        }
     }
 }

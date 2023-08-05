@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".PersonalInformationActivity"
-    android:background="@color/gray9"
+    android:background="#ececec"
     >
 
     <com.posturedetection.android.widget.TitleLayout

@@ -2,6 +2,7 @@ package com.posturedetection.android
 
 import android.app.Activity
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -15,6 +16,7 @@ import com.posturedetection.android.util.PhotoUtils
 import org.litepal.LitePal
 import org.litepal.tablemanager.Connector
 import com.posturedetection.android.databinding.ActivityRegisterBinding
+import com.posturedetection.android.util.ChangeLanguageUtil
 
 class RegisterActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -31,6 +33,9 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
         ActivityCollector.addActivity(this)
+//        val sp: SharedPreferences = getSharedPreferences("account_settings", MODE_PRIVATE)
+//        var account_settings_json = sp.getString("account_settings", null)
+//        ChangeLanguageUtil().changeLanguage(account_settings_json?:"")
 
         etAccountEmail =binding.etAccountEmail
         etPassword = binding.etPassword

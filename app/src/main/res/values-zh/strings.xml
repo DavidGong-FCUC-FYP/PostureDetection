@@ -70,7 +70,10 @@
     <string name="back">后置</string>
     <!--Pomodoro Alarm-->
     <string name="pomodoro_alarm">番茄闹钟</string>
-
+    <!--"Working time is over. Take a break!"-->
+    <string name="working_time_is_over">工作时间结束。休息一下！</string>
+    <!--"Break time is over. Let's get back to work!"-->
+    <string name="break_time_is_over">休息时间结束。让我们回去工作！</string>
     <string-array name="tfe_pe_camera_name">
         <item>后置摄像头</item>
         <item>前置摄像头</item>

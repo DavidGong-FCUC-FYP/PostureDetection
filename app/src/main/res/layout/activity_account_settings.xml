@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".AccountSettingsActivity">
+    tools:context=".AccountSettingsActivity"
+    >
 
     <com.posturedetection.android.widget.TitleLayout
         android:id="@+id/tl_title"
@@ -22,7 +23,8 @@
         <TextView
             android:id="@+id/tvAIDevice"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_weight="1"
             android:text="@string/ai_device"
             android:textSize="@dimen/pickerview_textsize" />
@@ -32,23 +34,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginBottom="16dp"
-            app:checkedButton="@id/btnCPU"
+            style="?attr/materialButtonToggleGroupStyle"
             app:singleSelection="true">
+
             <Button
                 android:id="@+id/btnCPU"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="CPU"
-                app:backgroundTint="@drawable/background_selector"
-                />
+                android:textColor="@drawable/text_color_selector"
+                app:backgroundTint="@drawable/background_selector" />
 
             <Button
                 android:id="@+id/btnGPU"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@drawable/text_color_selector"
                 app:backgroundTint="@drawable/background_selector"
                 android:text="GPU" />
 
@@ -57,6 +60,7 @@
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@drawable/text_color_selector"
                 app:backgroundTint="@drawable/background_selector"
                 android:text="NNAPI" />
 
@@ -64,53 +68,6 @@
 
 
     </LinearLayout>
-
-    <!-- Add the divider between LinearLayouts -->
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="@drawable/divider" />
-
-    <LinearLayout
-        android:layout_marginTop="16dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="16dp">
-
-        <TextView
-            android:id="@+id/tv_theme_appearance"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:textSize="@dimen/pickerview_textsize"
-            android:text="@string/theme_appearance" />
-
-        <com.google.android.material.button.MaterialButtonToggleGroup
-            android:id="@+id/mbtg_theme_appearance"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginBottom="16dp"
-            app:singleSelection="true"
-            app:selectedColor="@color/green2">
-            <Button
-                android:id="@+id/btnWhite"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/white" />
-
-            <Button
-                android:id="@+id/btnDark"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/dark" />
-
-        </com.google.android.material.button.MaterialButtonToggleGroup>
-    </LinearLayout>
-
     <!-- Add the divider between LinearLayouts -->
     <View
         android:layout_width="match_parent"
@@ -126,8 +83,9 @@
 
         <TextView
             android:id="@+id/tv_camera"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_weight="1"
             android:textSize="@dimen/pickerview_textsize"
             android:text="@string/camera" />
@@ -137,7 +95,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginBottom="16dp"
+            style="?attr/materialButtonToggleGroupStyle"
             app:singleSelection="true"
             app:selectedColor="@color/green2">
             <Button
@@ -145,14 +103,18 @@
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/front" />
+                android:text="@string/front"
+                android:textColor="@drawable/text_color_selector"
+                app:backgroundTint="@drawable/background_selector"/>
 
             <Button
                 android:id="@+id/btnBack"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/back" />
+                android:text="@string/back"
+                android:textColor="@drawable/text_color_selector"
+                app:backgroundTint="@drawable/background_selector"/>
 
 
         </com.google.android.material.button.MaterialButtonToggleGroup>
@@ -160,6 +122,59 @@
 
 
     </LinearLayout>
+    <!-- Add the divider between LinearLayouts -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@drawable/divider" />
+
+    <LinearLayout
+        android:layout_marginTop="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/tv_theme_appearance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:textSize="@dimen/pickerview_textsize"
+            android:text="@string/theme_appearance" />
+
+        <com.google.android.material.button.MaterialButtonToggleGroup
+            android:id="@+id/mbtg_theme_appearance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            style="?attr/materialButtonToggleGroupStyle"
+            app:singleSelection="true"
+            app:selectedColor="@color/green2">
+            <Button
+                android:id="@+id/btnWhite"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/white"
+                android:textColor="@drawable/text_color_selector"
+                app:backgroundTint="@drawable/background_selector"/>
+                />
+
+            <Button
+                android:id="@+id/btnDark"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/dark"
+                android:textColor="@drawable/text_color_selector"
+                app:backgroundTint="@drawable/background_selector"/>
+
+        </com.google.android.material.button.MaterialButtonToggleGroup>
+    </LinearLayout>
+
+
     <!-- Add the divider between LinearLayouts -->
     <View
         android:layout_width="match_parent"
@@ -175,18 +190,18 @@
 
         <TextView
             android:id="@+id/tv_language"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_weight="1"
             android:textSize="@dimen/pickerview_textsize"
-            android:text="@string/language" />
+            android:text="@string/language"/>
 
         <com.google.android.material.button.MaterialButtonToggleGroup
             android:id="@+id/mbtg_language"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginBottom="16dp"
+            style="?attr/materialButtonToggleGroupStyle"
             app:singleSelection="true"
             app:selectedColor="@color/green2">
 
@@ -195,21 +210,27 @@
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/english" />
+                android:text="@string/english"
+                android:textColor="@drawable/text_color_selector"
+                app:backgroundTint="@drawable/background_selector"/>
 
             <Button
                 android:id="@+id/btnChinese"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/chinese" />
+                android:text="@string/chinese"
+                android:textColor="@drawable/text_color_selector"
+                app:backgroundTint="@drawable/background_selector"/>
 
             <Button
                 android:id="@+id/btnMalay"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/malay" />
+                android:text="@string/malay"
+                android:textColor="@drawable/text_color_selector"
+                app:backgroundTint="@drawable/background_selector"/>
 
         </com.google.android.material.button.MaterialButtonToggleGroup>
 
@@ -222,38 +243,37 @@
         android:background="@drawable/divider" />
     <!--pomodoro_alarm-->
 
-    <LinearLayout
-        android:id="@+id/ll_pomodoro_alarm"
-        android:layout_marginTop="16dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="16dp">
+<!--    <LinearLayout-->
+<!--        android:id="@+id/ll_pomodoro_alarm"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="horizontal"-->
+<!--        android:padding="16dp">-->
 
-        <TextView
-            android:id="@+id/tv_pomodoro_timer"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:textSize="@dimen/pickerview_textsize"
-            android:text="@string/pomodoro_alarm" />
+<!--        <TextView-->
+<!--            android:id="@+id/tv_pomodoro_timer"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:layout_weight="1"-->
+<!--            android:textSize="@dimen/pickerview_textsize"-->
+<!--            android:text="@string/pomodoro_alarm" />-->
 
-        <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/ss_pomo_timer"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:checked="false"
-            android:textOff="Off"
-            android:textOn="Open"
-            android:layout_marginRight="60dp"
-            android:textSize="@dimen/pickerview_textsize"
-            android:layout_centerHorizontal="true"
-            app:trackTint="@drawable/background_selector"
-            app:trackTintMode="multiply"
-            app:thumbTint="@drawable/switch_thumb_color_selector"
-            app:thumbTintMode="multiply"
-            />
+<!--        <androidx.appcompat.widget.SwitchCompat-->
+<!--            android:id="@+id/ss_pomo_timer"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:checked="false"-->
+<!--            android:layout_marginRight="60dp"-->
+<!--            android:textSize="@dimen/pickerview_textsize"-->
+<!--            android:layout_centerHorizontal="true"-->
+<!--            app:trackTint="@drawable/switch_track_selector"-->
+<!--            app:trackTintMode="multiply"-->
+<!--            app:thumbTint="@drawable/switch_thumb_color_selector"-->
+<!--            app:thumbTintMode="multiply"-->
+<!--            />-->
 
-    </LinearLayout>
+<!--    </LinearLayout>-->
 
 </LinearLayout>

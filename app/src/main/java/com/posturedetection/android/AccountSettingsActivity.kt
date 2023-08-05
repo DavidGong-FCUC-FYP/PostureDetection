@@ -1,17 +1,28 @@
 package com.posturedetection.android
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
+import android.media.RingtoneManager
+import android.os.Build
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SwitchCompat
+import androidx.core.app.NotificationCompat
 import androidx.core.os.LocaleListCompat
 import com.google.android.material.button.MaterialButtonToggleGroup
 import com.google.gson.Gson
 import com.posturedetection.android.data.LoginUser
 import com.posturedetection.android.data.model.AccountSettings
 import com.posturedetection.android.databinding.ActivityAccountSettingsBinding
+import com.posturedetection.android.util.ActivityCollector
+import com.posturedetection.android.util.ChangeLanguageUtil
 import com.posturedetection.android.util.ToastUtils
 import com.posturedetection.android.widget.TitleLayout
 import com.savvyapps.togglebuttonlayout.ToggleButtonLayout
@@ -30,6 +41,16 @@ class AccountSettingsActivity : AppCompatActivity() {
     private lateinit var ssPomoTimer: SwitchCompat
 
 
+    //PomoTimer
+    private lateinit var timer: CountDownTimer
+    private var isTimerRunning = false
+    private var timeLeftInMillis = 0L
+    //test try 30s
+    private var workingTime = 30000L // 25 minutes in milliseconds
+    //private var workingTime = 1500000L // 25 minutes in milliseconds
+    private var relaxationTime = 300000L // 5 minutes in milliseconds
+
+
 
     //AccountSettings
     private var accountSettings: AccountSettings = AccountSettings(0, 0, 0, 0, false)
@@ -44,6 +65,7 @@ class AccountSettingsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityAccountSettingsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        ActivityCollector.addActivity(this)
 
         titleLayout = binding.tlTitle
         var gson = Gson()
@@ -53,11 +75,13 @@ class AccountSettingsActivity : AppCompatActivity() {
         mbtgThemeAppearance = binding.mbtgThemeAppearance
         mbtgCamera = binding.mbtgCamera
         mbtgLanguage = binding.mbtgLanguage
-        ssPomoTimer = binding.ssPomoTimer
+        //ssPomoTimer = binding.ssPomoTimer
 
 
         sp = getSharedPreferences("account_settings", MODE_PRIVATE)
         var account_settings_json = sp.getString("account_settings", null)
+        ChangeLanguageUtil().changeLanguage(account_settings_json?:"")
+
         if (account_settings_json != null){
             //from sp to get AccountSettings
             accountSettings = gson.fromJson(account_settings_json, AccountSettings::class.java)
@@ -66,7 +90,7 @@ class AccountSettingsActivity : AppCompatActivity() {
                 mbtgThemeAppearance.check(mbtgThemeAppearance.getChildAt(accountSettings.themeAppearance).id)
                 mbtgCamera.check(mbtgCamera.getChildAt(accountSettings.camera).id)
                 mbtgLanguage.check(mbtgLanguage.getChildAt(accountSettings.language).id)
-                ssPomoTimer.isChecked = accountSettings.pomoTimer
+                //ssPomoTimer.isChecked = accountSettings.pomoTimer
             }
         }
 
@@ -110,7 +134,7 @@ class AccountSettingsActivity : AppCompatActivity() {
                         language = "zh"
                     }
                     2 -> {
-                        language = "ms-rMY"
+                        language = "ms"
                     }
                 }
                 val locales = LocaleListCompat.forLanguageTags(language)
@@ -118,9 +142,15 @@ class AccountSettingsActivity : AppCompatActivity() {
             }
         }
 
-        ssPomoTimer.setOnCheckedChangeListener { buttonView, isChecked ->
-            accountSettings.pomoTimer = isChecked
-        }
+//        ssPomoTimer.setOnCheckedChangeListener { buttonView, isChecked ->
+//            accountSettings.pomoTimer = isChecked
+//
+//            if (isChecked) {
+//                startTimer()
+//            } else {
+//                stopTimer()
+//            }
+//        }
 
         titleLayout.iv_save.setOnClickListener {
             sp.edit().putString("account_settings", gson.toJson(accountSettings)).apply()
@@ -129,6 +159,100 @@ class AccountSettingsActivity : AppCompatActivity() {
             finish()
         }
     }
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        ActivityCollector.removeActivity(this)
+    }
+
+
+//    private fun startTimer() {
+//        if (accountSettings.pomoTimer) {
+//            // Start the working time (25 minutes)
+//            timeLeftInMillis = workingTime
+//            timer = createTimer(workingTime)
+//        } else {
+//            // Start the relaxation time (5 minutes)
+//            timeLeftInMillis = relaxationTime
+//            timer = createTimer(relaxationTime)
+//        }
+//
+//        timer.start()
+//        isTimerRunning = true
+//    }
+//
+//    private fun stopTimer() {
+//        timer.cancel()
+//        isTimerRunning = false
+//        timeLeftInMillis = 0
+//        updateTimer()
+//    }
+//
+//    private fun updateTimer() {
+//        val minutes = (timeLeftInMillis / 1000) / 60
+//        val seconds = (timeLeftInMillis / 1000) % 60
+////        val timeLeftFormatted = String.format("%02d:%02d", minutes, seconds)
+////        tvTimer.text = timeLeftFormatted
+//    }
+//
+//    private fun createTimer(timeInMillis: Long): CountDownTimer {
+//        return object : CountDownTimer(timeInMillis, 1000) {
+//            override fun onTick(millisUntilFinished: Long) {
+//                timeLeftInMillis = millisUntilFinished
+//               // updateTimer()
+//            }
+//
+//            override fun onFinish() {
+//                isTimerRunning = false
+//                //updateTimer()
+//
+//                // Show a notification
+//                if (accountSettings.pomoTimer) {
+//                    showNotification(R.string.working_time_is_over.toString())
+//                } else {
+//                    showNotification(R.string.break_time_is_over.toString())
+//                }
+//
+//                // Play an alarm sound
+//                val notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+//                val ringtone = RingtoneManager.getRingtone(applicationContext, notification)
+//                ringtone?.play()
+//            }
+//        }
+//    }
+//
+//    private fun showNotification(message: String) {
+//        val channelId = "PomodoroChannel"
+//        val notificationId = 1 // Use a unique ID for each notification
+//
+//        // Create an intent to open the PomodoroActivity when the notification is clicked
+////        val intent = Intent(this, HomeActivity::class.java)
+//        val pendingIntent = PendingIntent.getActivity(
+//            this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT
+//        )
+//
+//        // Create a notification
+//        val builder = NotificationCompat.Builder(this, channelId)
+//            .setSmallIcon(com.google.android.material.R.drawable.ic_clock_black_24dp)
+//            .setContentTitle(R.string.pomodoro_alarm.toString())
+//            .setContentText(message)
+//            .setContentIntent(pendingIntent)
+//            .setAutoCancel(true)
+//
+//        // Show the notification
+//        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+//
+//        // For Android 8.0 and above, create a notification channel
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//            val channel = NotificationChannel(
+//                channelId, R.string.pomodoro_alarm.toString(), NotificationManager.IMPORTANCE_DEFAULT
+//            )
+//            notificationManager.createNotificationChannel(channel)
+//        }
+//
+//        notificationManager.notify(notificationId, builder.build())
+//    }
 
 
 

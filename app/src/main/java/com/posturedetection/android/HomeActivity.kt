@@ -138,20 +138,20 @@ class HomeActivity : AppCompatActivity() {
                     0 -> selectedCamera = Camera.BACK
                     1 -> selectedCamera = Camera.FRONT
                 }
-                var language = "en"
-                when(accountSettings.language){
-                    0 -> {
-                        language = "en"
-                    }
-                    1 -> {
-                        language = "zh"
-                    }
-                    2 -> {
-                        language = "ms-rMY"
-                    }
-                }
-                val locales = LocaleListCompat.forLanguageTags(language)
-                AppCompatDelegate.setApplicationLocales(locales)
+//                var language = "en"
+//                when(accountSettings.language){
+//                    0 -> {
+//                        language = "en"
+//                    }
+//                    1 -> {
+//                        language = "zh"
+//                    }
+//                    2 -> {
+//                        language = "ms"
+//                    }
+//                }
+//                val locales = LocaleListCompat.forLanguageTags(language)
+//                AppCompatDelegate.setApplicationLocales(locales)
             }
         }
 

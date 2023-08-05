@@ -28,10 +28,14 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.database.FirebaseDatabase
 import com.google.gson.Gson
+import com.posturedetection.android.data.Camera
+import com.posturedetection.android.data.Device
 import com.posturedetection.android.data.LoginUser
+import com.posturedetection.android.data.model.AccountSettings
 import com.posturedetection.android.data.model.User
 import com.posturedetection.android.databinding.ActivityLoginBinding
 import com.posturedetection.android.util.ActivityCollector
+import com.posturedetection.android.util.ChangeLanguageUtil
 import com.posturedetection.android.util.MD5
 import com.posturedetection.android.util.PhotoUtils
 import com.posturedetection.android.util.ToastUtils
@@ -90,6 +94,30 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         ivEye.setOnClickListener(this)
         ivMoreAccount.setOnClickListener(this)
 
+        val sp = getSharedPreferences("account_settings", MODE_PRIVATE)
+        var account_settings_json = sp.getString("account_settings", null)
+        ChangeLanguageUtil().changeLanguage(account_settings_json?:"")
+
+//        if (account_settings_json != null){
+//            var gson = Gson()
+//            var accountSettings = gson.fromJson(account_settings_json, AccountSettings::class.java)
+//            if (accountSettings != null){
+//                var language = "en"
+//                when(accountSettings.language){
+//                    0 -> {
+//                        language = "en"
+//                    }
+//                    1 -> {
+//                        language = "zh"
+//                    }
+//                    2 -> {
+//                        language = "ms"
+//                    }
+//                }
+//                val locales = LocaleListCompat.forLanguageTags(language)
+//                AppCompatDelegate.setApplicationLocales(locales)
+//            }
+//        }
 
         val account = sp.getString("account", "")
         if (account != "") {

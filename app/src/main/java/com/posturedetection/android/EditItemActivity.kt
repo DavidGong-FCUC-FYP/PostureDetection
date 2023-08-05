@@ -1,6 +1,7 @@
 package com.posturedetection.android
 
 import android.annotation.SuppressLint
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.EditText
@@ -10,6 +11,7 @@ import com.posturedetection.android.data.LoginUser
 import com.posturedetection.android.databinding.ActivityEditItemBinding
 import com.posturedetection.android.databinding.ActivityHomeBinding
 import com.posturedetection.android.util.ActivityCollector
+import com.posturedetection.android.util.ChangeLanguageUtil
 import com.posturedetection.android.widget.TitleLayout
 
 class EditItemActivity : AppCompatActivity() {
@@ -27,6 +29,11 @@ class EditItemActivity : AppCompatActivity() {
         binding = ActivityEditItemBinding.inflate(layoutInflater)
         setContentView(binding.root)
         ActivityCollector.addActivity(this)
+
+//        val sp: SharedPreferences = getSharedPreferences("account_settings", MODE_PRIVATE)
+//        var account_settings_json = sp.getString("account_settings", null)
+//        ChangeLanguageUtil().changeLanguage(account_settings_json?:"")
+
 
         tlTitle = binding.tlTitle
         etEditContent = binding.etEditContent

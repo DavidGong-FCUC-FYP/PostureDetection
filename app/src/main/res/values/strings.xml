@@ -76,6 +76,10 @@
     <string name="back">Back</string>
     <!--Pomodoro Alarm-->
     <string name="pomodoro_alarm">Pomodoro Timer</string>
+    <!--"Working time is over. Take a break!"-->
+    <string name="working_time_is_over">Working time is over. Take a break!</string>
+    <!--"Break time is over. Let's get back to work!"-->
+    <string name="break_time_is_over">Break time is over. Start working!</string>
 
 
     <string-array name="tfe_pe_device_name" translatable="false">
