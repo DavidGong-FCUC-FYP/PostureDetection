@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
+import com.posturedetection.android.R
 import com.posturedetection.android.databinding.FragmentStatisticsBinding
 
 class StatisticsFragment : Fragment() {
@@ -40,10 +41,13 @@ class StatisticsFragment : Fragment() {
     }
 
     private fun setupTabLayout() {
+        var tabIcon = arrayOf(R.drawable.ic_pie_chart,R.drawable.ic_bar_chart);
         var tabTitleList = arrayOf("Pie Chart","Bar Chart");
         TabLayoutMediator(
             binding.mytablayout2, binding.myviepage2
-        ) { tab, position -> tab.text = tabTitleList[position]
+        ) { tab, position ->
+            tab.text = tabTitleList[position]
+            tab.setIcon(tabIcon[position])
         }.attach()
     }
 
