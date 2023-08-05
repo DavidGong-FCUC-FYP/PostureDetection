@@ -23,7 +23,7 @@
     <string name="login">登录</string>
     <string name="remember">记住我</string>
 
-    <!--others-->
+    <!--Toast-->
     <string name="user_already_exist">用户已存在</string>
     <!--注册成功-->
     <string name="register_success">注册成功</string>
@@ -33,6 +33,8 @@
     <string name="login_success">登录成功</string>
     <!--欢迎-->
     <string name="welcome">欢迎回来</string>
+    <string name="save_success">保存成功</string>
+
 
     <string name="ai_device">AI处理器</string>
     <!--theme appearance-->

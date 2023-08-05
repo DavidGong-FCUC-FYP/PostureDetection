@@ -42,6 +42,7 @@ class ProfileFragment : Fragment() {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         auth = FirebaseAuth.getInstance()
         val root: View = binding.root
+        loginUser.reinit()
         binding.userImg.setImageBitmap(PhotoUtils().byte2bitmap(loginUser.portrait))
         binding.profileUsername.text = loginUser.name
         binding.profileEmail.text = loginUser.email

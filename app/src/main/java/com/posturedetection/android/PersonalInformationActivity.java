@@ -124,7 +124,8 @@ public class PersonalInformationActivity extends AppCompatActivity implements Vi
             public void onClick(View v) {
                 loginUser.update();
                 setResult(RESULT_OK);
-                mToast.showShort(PersonalInformationActivity.this,"Save Success");
+                String sv = String.valueOf(R.string.save_success);
+                mToast.showShort(PersonalInformationActivity.this,sv);
                //back to previous activity
                 //onDestroy();
                 finish();

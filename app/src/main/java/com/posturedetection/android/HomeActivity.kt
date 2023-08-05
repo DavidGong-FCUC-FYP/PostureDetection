@@ -25,9 +25,11 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import com.google.gson.Gson
 import com.posturedetection.android.camera.CameraSource
 import com.posturedetection.android.data.Camera
 import com.posturedetection.android.data.Device
+import com.posturedetection.android.data.model.AccountSettings
 import com.posturedetection.android.databinding.ActivityHomeBinding
 import com.posturedetection.android.ml.ModelType
 import com.posturedetection.android.ml.MoveNet
@@ -117,6 +119,25 @@ class HomeActivity : AppCompatActivity() {
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
         ActivityCollector.addActivity(this)
+
+        //get sp
+        val sp = getSharedPreferences("account_settings", MODE_PRIVATE)
+        var account_settings_json = sp.getString("account_settings", null)
+        if (account_settings_json != null){
+            var gson = Gson()
+            var accountSettings = gson.fromJson(account_settings_json, AccountSettings::class.java)
+            if (accountSettings != null){
+                when(accountSettings.aiDevice){
+                    0 -> device = Device.CPU
+                    1 -> device = Device.GPU
+                    2 -> device = Device.NNAPI
+                }
+                when(accountSettings.camera){
+                    0 -> selectedCamera = Camera.BACK
+                    1 -> selectedCamera = Camera.FRONT
+                }
+            }
+        }
 
         val navView: BottomNavigationView = binding.navView
         navView.setOnItemSelectedListener {

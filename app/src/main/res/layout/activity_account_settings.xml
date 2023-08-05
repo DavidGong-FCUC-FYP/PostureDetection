@@ -5,8 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    app:divider="@drawable/divider"
-    app:showDividers="middle"
     tools:context=".AccountSettingsActivity">
 
     <com.posturedetection.android.widget.TitleLayout
@@ -35,8 +33,15 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="16dp"
+            app:selectedColor="@color/green2"
             app:menu="@menu/toggle_button_device" />
     </LinearLayout>
+
+    <!-- Add the divider between LinearLayouts -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@drawable/divider" />
 
     <LinearLayout
         android:layout_marginTop="16dp"
@@ -59,9 +64,16 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="16dp"
+            app:selectedColor="@color/green2"
             app:menu="@menu/toggle_button_theme_appearance" />
     </LinearLayout>
-<!--camera-->
+
+    <!-- Add the divider between LinearLayouts -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@drawable/divider" />
+
     <LinearLayout
         android:layout_marginTop="16dp"
         android:layout_width="match_parent"
@@ -83,9 +95,14 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="16dp"
+            app:selectedColor="@color/green2"
             app:menu="@menu/toggle_button_camera" />
     </LinearLayout>
-
+    <!-- Add the divider between LinearLayouts -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@drawable/divider" />
     <!--language-->
     <LinearLayout
         android:layout_marginTop="16dp"
@@ -108,11 +125,16 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="16dp"
+            app:selectedColor="@color/green2"
             app:menu="@menu/toggle_button_language" />
 
     </LinearLayout>
 
-
+    <!-- Add the divider between LinearLayouts -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@drawable/divider" />
     <!--pomodoro_alarm-->
 
     <LinearLayout
@@ -124,21 +146,28 @@
         android:padding="16dp">
 
         <TextView
-            android:id="@+id/tv_pomodoro_alarm"
+            android:id="@+id/tv_pomodoro_timer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:textSize="@dimen/pickerview_textsize"
             android:text="@string/pomodoro_alarm" />
 
-        <ImageView
-            android:id="@+id/jt_right_iv"
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/ss_pomo_timer"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="8dp"
-            android:padding="8dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/arrow_forward" />
+            android:layout_height="match_parent"
+            android:checked="false"
+            android:textOff="Off"
+            android:textOn="Open"
+            android:layout_marginRight="16dp"
+            android:textSize="@dimen/pickerview_textsize"
+            android:layout_centerHorizontal="true"
+            app:trackTint="@drawable/switch_track_color_selector"
+            app:trackTintMode="multiply"
+            app:thumbTint="@drawable/switch_thumb_color_selector"
+            app:thumbTintMode="multiply"
+            />
 
     </LinearLayout>
 

@@ -53,16 +53,16 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
                 var password = etPassword.text.toString()
 
                 password = MD5.md5(password) // MD5 encryption
-                val users = LitePal.where("email==?", email).find(User::class.java)
+                var user = LitePal.where("email==?", email).findFirst(User::class.java)
                 val mToast = Toast.makeText(this, null, Toast.LENGTH_SHORT)
 
                 // Check if the username already exists
-                if (!users.isEmpty()) {
+                if (user != null) {
                     mToast.setText(R.string.user_already_exist)
                     mToast.show()
                 } else {
                     // If the username does not exist, create a new user
-                    val user = User()
+                    user = User()
                     user.email = email
                     user.password = password
                     val name = email.split("@".toRegex()).toTypedArray()[0]

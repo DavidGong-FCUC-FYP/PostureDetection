@@ -39,9 +39,9 @@ import org.litepal.LitePal
 
 class LoginActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var binding: ActivityLoginBinding
-    private lateinit var auth : FirebaseAuth
-    private lateinit var database : FirebaseDatabase
-    private lateinit var googleSignInClient : GoogleSignInClient
+    private lateinit var auth: FirebaseAuth
+    private lateinit var database: FirebaseDatabase
+    private lateinit var googleSignInClient: GoogleSignInClient
     private var loginUser: LoginUser = LoginUser.getInstance()
     private val gson = Gson()
 
@@ -58,6 +58,8 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var cbRemember: CheckBox
     private var passwordVisible = false
     private val toastUtils = ToastUtils()
+    private var user = User()
+
     override fun onDestroy() {
         super.onDestroy()
         ActivityCollector.removeActivity(this)
@@ -89,22 +91,33 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         ivMoreAccount.setOnClickListener(this)
 
 
-        val spUserEmail = sp.getString("account" , "")
-        Log.d("MainActivity", "onCreate: $spUserEmail")
-        //check if user is already logged in
-        if (spUserEmail != null && spUserEmail != ""){
-            val intent : Intent = Intent(this , HomeActivity::class.java)
-            startActivity(intent)
-            finish()
+        val account = sp.getString("account", "")
+        if (account != "") {
+            user = gson.fromJson(account, User::class.java)
+            Log.d("MainActivity", "onCreate: $account")
+            //check if user is already logged in
+            if (user != null) {
+                user = LitePal.where("email=?", user.email).findFirst(User::class.java)
+                if (user != null) {
+                    if (user.remember == 1) {
+                        //登入并存入LoginUser
+                        LoginUser.getInstance().login(user)
+                        //启动主界面
+                        val intent1 = Intent(this, HomeActivity::class.java)
+                        startActivity(intent1)
+                        toastUtils.showShort(this, R.string.welcome.toString())
+                        finish()
+                    }
+                }
+            }
         }
-
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
             .build()
 
-        googleSignInClient = GoogleSignIn.getClient(this , gso)
-        binding.gSignInBtn.setOnClickListener(){
+        googleSignInClient = GoogleSignIn.getClient(this, gso)
+        binding.gSignInBtn.setOnClickListener() {
             signInGoogle()
         }
 
@@ -112,29 +125,28 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     }
 
 
-
-    private fun signInGoogle(){
+    private fun signInGoogle() {
         val signInIntent = googleSignInClient.signInIntent
         launcher.launch(signInIntent)
     }
 
-    private val launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
-            result ->
-        if (result.resultCode == Activity.RESULT_OK){
+    private val launcher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
 
-            val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
-            handleResults(task)
+                val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+                handleResults(task)
+            }
         }
-    }
 
     private fun handleResults(task: Task<GoogleSignInAccount>) {
-        if (task.isSuccessful){
-            val account : GoogleSignInAccount? = task.result
-            if (account != null){
+        if (task.isSuccessful) {
+            val account: GoogleSignInAccount? = task.result
+            if (account != null) {
                 updateUI(account)
             }
-        }else{
-            Toast.makeText(this, task.exception.toString() , Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(this, task.exception.toString(), Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -145,29 +157,40 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
      *
      */
     private fun updateUI(account: GoogleSignInAccount) {
-        val credential = GoogleAuthProvider.getCredential(account.idToken , null)
+        val credential = GoogleAuthProvider.getCredential(account.idToken, null)
         auth.signInWithCredential(credential).addOnCompleteListener {
-            if (it.isSuccessful){
+            if (it.isSuccessful) {
+                val email = account.email.toString()
+                val jsonUser = sp.getString("account", "")
+                //check if user is already logged in or it is not new user
+                if (jsonUser != "") {
+                    user = LitePal.where("email=?", email).findFirst(User::class.java)
+                    if (user != null) {
+                        LoginUser.getInstance().login(user)
+                    }
+                }else {
+                    user = User()
+                    user.email = email
+                    user.name = account.displayName.toString()
+                    if (cbRemember.isChecked) {
+                        user.remember = 1
+                    } else {
+                        user.remember = 0
+                    }
+                    val editor: SharedPreferences.Editor = sp.edit()
+                    val userJson = gson.toJson(user)
+                    editor.putString("account", userJson)
+                    editor.apply()
 
-                val intent : Intent = Intent(this , HomeActivity::class.java)
+                    user.portrait = PhotoUtils().file2byte(this, "profile.png")
+                    user.save()
+                    loginUser.login(user)
+                }
+                val intent: Intent = Intent(this, HomeActivity::class.java)
                 Log.d("ProfileFragment", "onCreateView: $account")
-                val editor : SharedPreferences.Editor = sp.edit()
-
-
-                val user = User()
-                user.email = account.email.toString()
-                user.name = account.displayName.toString()
-                user.portrait = PhotoUtils().file2byte(this, "profile.png")
-                user.save()
-                loginUser.login(user)
-
-               // val userJson = gson.toJson(loginUserForSP)
-                editor.putString("account" , user.email)
-                editor.apply()
-
                 startActivity(intent)
-            }else{
-                Toast.makeText(this, it.exception.toString() , Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
 
             }
         }
@@ -199,7 +222,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             //登录按钮的逻辑
             R.id.login -> {
                 var loginFlag = false //是否登录成功的标志
-                val user = LitePal.where("email=?", email).findFirst(User::class.java)
+                user = LitePal.where("email=?", email).findFirst(User::class.java)
 
                 //根据user的remember状态，判断是否需要MD5加密
                 password = if (password == "12345678") user.password else MD5.md5(password)
