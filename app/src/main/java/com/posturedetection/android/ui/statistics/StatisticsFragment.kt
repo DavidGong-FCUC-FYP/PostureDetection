@@ -25,8 +25,7 @@ class StatisticsFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val statisticsViewModel =  ViewModelProvider(this).get(StatisticsViewModel::class.java)
-        StatisticsDataUtils.writeCounterToSharedPreferences(requireContext(), statisticsViewModel.counterData)
-        statisticsViewModel.counterData.reset()
+
 
 
     }

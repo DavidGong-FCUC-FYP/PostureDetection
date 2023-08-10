@@ -81,17 +81,17 @@ class StatisticsDataUtils {
 
 data class Counter(
     val date: String = "",
-    var forwardheadCounter: Float = 0f,
-    var crosslegCounter: Float = 0f,
-    var standardCounter: Float = 0f,
-    var missingCounter: Float = 0f
+    var forwardheadCounter: Float = 1f,
+    var crosslegCounter: Float = 1f,
+    var standardCounter: Float = 1f,
+    var missingCounter: Float = 1f
 )
 
 fun Counter.reset() {
-    forwardheadCounter = 0f
-    crosslegCounter = 0f
-    standardCounter = 0f
-    missingCounter = 0f
+    forwardheadCounter = 1f
+    crosslegCounter = 1f
+    standardCounter = 1f
+    missingCounter = 1f
 }
 
 

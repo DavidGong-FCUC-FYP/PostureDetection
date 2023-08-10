@@ -120,6 +120,36 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
+
+    fun changeBySp(){
+        //get sp
+        val sp = getSharedPreferences("account_settings", MODE_PRIVATE)
+        var account_settings_json = sp.getString("account_settings", null)
+        if (account_settings_json != null){
+            var gson = Gson()
+            var accountSettings = gson.fromJson(account_settings_json, AccountSettings::class.java)
+            if (accountSettings != null){
+                val targetDevice = when (accountSettings.aiDevice) {
+                    0 -> Device.CPU
+                    1 -> Device.GPU
+                    else -> Device.NNAPI
+                }
+                if (device == targetDevice) return
+                device = targetDevice
+
+
+                val targetCamera = when (accountSettings.camera) {
+                    0 -> Camera.BACK
+                    else -> Camera.FRONT
+                }
+                if (selectedCamera == targetCamera) return
+                selectedCamera = targetCamera
+
+                createPoseEstimator()
+            }
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -129,24 +159,6 @@ class HomeActivity : AppCompatActivity() {
 
         statisticsViewModel = ViewModelProvider(this).get(StatisticsViewModel::class.java)
 
-        //get sp
-        val sp = getSharedPreferences("account_settings", MODE_PRIVATE)
-        var account_settings_json = sp.getString("account_settings", null)
-        if (account_settings_json != null){
-            var gson = Gson()
-            var accountSettings = gson.fromJson(account_settings_json, AccountSettings::class.java)
-            if (accountSettings != null){
-                when(accountSettings.aiDevice){
-                    0 -> device = Device.CPU
-                    1 -> device = Device.GPU
-                    2 -> device = Device.NNAPI
-                }
-                when(accountSettings.camera){
-                    0 -> selectedCamera = Camera.BACK
-                    1 -> selectedCamera = Camera.FRONT
-                }
-            }
-        }
 
         val navView: BottomNavigationView = binding.navView
         navView.setOnItemSelectedListener {
@@ -160,8 +172,10 @@ class HomeActivity : AppCompatActivity() {
                 R.id.navigation_statistics -> {
                     cameraSource?.close()
                     cameraSource = null
-                    showFragment(StatisticsFragment())
+                    StatisticsDataUtils.writeCounterToSharedPreferences(this, statisticsViewModel.counterData)
                     statisticsViewModel.counterData.reset()
+                    showFragment(StatisticsFragment())
+                    //statisticsViewModel.counterData.reset()
                     true
                 }
                 R.id.navigation_profile -> {
@@ -188,25 +202,26 @@ class HomeActivity : AppCompatActivity() {
 
         initSpinner()
         if (!isCameraPermissionGranted()) {
+            changeBySp()
             requestPermission()
         }
     }
 
     override fun onStart() {
-        super.onStart()
+        changeBySp()
         openCamera()
+        super.onStart()
     }
 
     override fun onResume() {
-        super.onResume()
-       // openCamera()
         cameraSource?.resume()
+        super.onResume()
     }
 
     override fun onPause() {
         super.onPause()
-        cameraSource?.close()
-        cameraSource = null
+//        cameraSource?.close()
+//        cameraSource = null
     }
 
     /** 检查相机权限是否有授权 */
