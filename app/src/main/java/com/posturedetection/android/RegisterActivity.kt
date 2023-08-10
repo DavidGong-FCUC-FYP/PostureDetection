@@ -1,6 +1,7 @@
 package com.posturedetection.android
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -71,7 +72,7 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
                     user.name = name
 
                     // Default settings: not remember password and set default portrait
-                    user.portrait = PhotoUtils().file2byte(this, "profile.png")
+                    user.imgUrl = Uri.parse("android.resource://" + this.getPackageName() + "/" + R.drawable.profile)
                     user.remember = 0
                     user.save()
 

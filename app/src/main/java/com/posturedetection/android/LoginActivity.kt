@@ -4,7 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
+import android.net.Uri
 import android.os.Bundle
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
@@ -16,6 +16,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -29,12 +30,12 @@ import com.posturedetection.android.data.LoginUser
 import com.posturedetection.android.data.model.AccountSettings
 import com.posturedetection.android.data.model.User
 import com.posturedetection.android.databinding.ActivityLoginBinding
-import com.posturedetection.android.util.ActivityCollector
 import com.posturedetection.android.util.AccountSettingsUtil
+import com.posturedetection.android.util.ActivityCollector
 import com.posturedetection.android.util.MD5
-import com.posturedetection.android.util.PhotoUtils
 import com.posturedetection.android.util.ToastUtils
 import org.litepal.LitePal
+
 
 class LoginActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var binding: ActivityLoginBinding
@@ -208,8 +209,9 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                     val userJson = gson.toJson(user)
                     editor.putString("account", userJson)
                     editor.apply()
-
-                    user.portrait = PhotoUtils().file2byte(this, "profile.png")
+                    val uri =
+                        Uri.parse("android.resource://" + this.getPackageName() + "/" + R.drawable.profile)
+                    user.imgUrl = uri
                     user.save()
                     loginUser.login(user)
                 }
@@ -226,15 +228,12 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     override fun onStart() {
         super.onStart()
         //从本地数据库判断是否记住密码
-        val users = LitePal.findAll(User::class.java)
-        for (u in users) {
-            if (u.remember == 1) {
-                etAccountEmail.setText(u.email)
-                etPassword.setText("12345678") //因为限制密码不能是全数字，利用12345678为通用密码简化验证，但会降低安全性
-                cbRemember.isChecked = true
-                break
-            }
-        }
+//        val u = LitePal.findFirst(User::class.java)
+//        if (u.remember == 1) {
+//            etAccountEmail.setText(u.email)
+//            etPassword.setText("12345678") //因为限制密码不能是全数字，利用12345678为通用密码简化验证，但会降低安全性
+//            cbRemember.isChecked = true
+//        }
     }
 
     override fun onClick(v: View) {

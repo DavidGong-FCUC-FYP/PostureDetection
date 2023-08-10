@@ -62,6 +62,13 @@ public class PhotoUtils {
         return imageUri;
     }
 
+    public Uri handleImage (Context context, Intent data){
+        Uri uri = data.getData();
+        return uri;
+    }
+
+
+
     //方法2，3， from albums
     @TargetApi(19)
     public String handleImageOnKitKat(Context context, Intent data){

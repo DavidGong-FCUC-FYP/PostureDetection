@@ -1,8 +1,11 @@
 package com.posturedetection.android
 
+import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SwitchCompat
@@ -115,11 +118,27 @@ class AccountSettingsActivity : AppCompatActivity() {
 //        }
 
         titleLayout.iv_save.setOnClickListener {
-            AccountSettingsUtil.init(accountSettings)
-            sp.edit().putString("account_settings", gson.toJson(accountSettings)).apply()
-            //show Toast
-            Toast.makeText(this, R.string.save_success, Toast.LENGTH_SHORT).show()
-            finish()
+            //make a AlertDialog to confirm
+            val alertDialogBuilder = AlertDialog.Builder(this)
+            alertDialogBuilder.setTitle(R.string.confirm_save)
+            alertDialogBuilder.setMessage(R.string.confirm_save_and_restart)
+            alertDialogBuilder.setPositiveButton(R.string.yes) { dialog, which ->
+                AccountSettingsUtil.init(accountSettings)
+                sp.edit().putString("account_settings", gson.toJson(accountSettings)).apply()
+                //show Toast
+                Toast.makeText(this, R.string.save_success, Toast.LENGTH_SHORT).show()
+                finish()
+                //restart app
+                val intent = packageManager.getLaunchIntentForPackage(packageName)
+                intent!!.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                startActivity(intent)
+            }
+            alertDialogBuilder.setNegativeButton(R.string.no) { dialog, which ->
+                //do nothing
+                dialog.dismiss()
+            }
+            val alertDialog = alertDialogBuilder.create()
+            alertDialog.show()
         }
     }
 

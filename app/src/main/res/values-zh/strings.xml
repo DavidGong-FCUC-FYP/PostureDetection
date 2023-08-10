@@ -87,7 +87,14 @@
     <string name="yesterday">昨天</string>
     <!--Hari-->
     <string name="day">天前</string>
-
+    <!--save-->
+    <string name="confirm_save">确认保存</string>
+    <!--restart  "Are you sure you want to save and restart the app?"-->
+    <string name="confirm_save_and_restart">您确定要保存并重新启动应用程序吗？</string>
+    <!--Yes-->
+    <string name="yes">是</string>
+    <!--No-->
+    <string name="no">否</string>
 
     <string-array name="tfe_pe_camera_name">
         <item>后置摄像头</item>

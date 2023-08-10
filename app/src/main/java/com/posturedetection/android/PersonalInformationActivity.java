@@ -249,7 +249,7 @@ public class PersonalInformationActivity extends AppCompatActivity implements Vi
                         //将拍摄的图片展示并更新数据库
                         Bitmap bitmap = BitmapFactory.decodeStream((getContentResolver().openInputStream(imageUrl)));
                         ri_portrati.setImageBitmap(bitmap);
-                        loginUser.setPortrait(photoUtils.bitmap2byte(bitmap));
+                        loginUser.setImgUrl(imageUrl);
                     }catch (FileNotFoundException e){
                         e.printStackTrace();
                     }
@@ -258,21 +258,27 @@ public class PersonalInformationActivity extends AppCompatActivity implements Vi
             //从相册中选择图片
             case FROM_ALBUMS:
                 if(resultCode == RESULT_OK){
-                    //判断手机版本号
-                    if(Build.VERSION.SDK_INT >= 19){
-                        imagePath =  photoUtils.handleImageOnKitKat(this, data);
-                    }else {
-                        imagePath = photoUtils.handleImageBeforeKitKat(this, data);
-                    }
-                }
-                if(imagePath != null){
-                    //将拍摄的图片展示并更新数据库
                     Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
                     ri_portrati.setImageBitmap(bitmap);
-                    loginUser.setPortrait(photoUtils.bitmap2byte(bitmap));
-                }else{
-                    Log.d("Posture Detection","Not get image");
+                    loginUser.setImgUrl(photoUtils.handleImage(this, data));
                 }
+//
+//                    //判断手机版本号
+//                //    imageUrl = photoUtils.take_photo_util(PersonalInformationActivity.this, "com.posturedetection.android.fileprovider", imagePath);
+//                    if(Build.VERSION.SDK_INT >= 19){
+//                        handleImage
+//                        imagePath =  photoUtils.handleImageOnKitKat(this, data);
+//
+//                    }else {
+//                        imagePath = photoUtils.handleImageBeforeKitKat(this, data);
+//                    }
+//                }
+//                if(imagePath != null){
+//                    //将拍摄的图片展示并更新数据库
+//
+//                }else{
+//                    Log.d("Posture Detection","Not get image");
+//                }
                 break;
             //如果是编辑名字，则修改展示
             case EDIT_NAME:
@@ -291,7 +297,7 @@ public class PersonalInformationActivity extends AppCompatActivity implements Vi
         ig_name.getContentEdt().setText(loginUser.getName());
         ig_email.getContentEdt().setText(loginUser.getEmail());
         ig_phone.getContentEdt().setText(loginUser.getPhone());
-        ri_portrati.setImageBitmap(photoUtils.byte2bitmap(loginUser.getPortrait()));
+        ri_portrati.setImageURI(loginUser.getImgUrl());
         ig_gender.getContentEdt().setText(loginUser.getGender());
         ig_region.getContentEdt().setText(loginUser.getRegion());
         ig_brithday.getContentEdt().setText(loginUser.getBirthday());

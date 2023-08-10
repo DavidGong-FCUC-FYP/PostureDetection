@@ -89,6 +89,16 @@
     <!--Hari-->
     <string name="day">Hari Lalu</string>
 
+    <!--AlertDialog-->
+    <!--save-->
+    <string name="confirm_save">Simpan</string>
+    <!--restart  "Are you sure you want to save and restart the app?"-->
+    <string name="confirm_save_and_restart">Adakah anda pasti ingin menyimpan dan memulakan semula aplikasi?</string>
+    <!--Yes-->
+    <string name="yes">Ya</string>
+    <!--No-->
+    <string name="no">Tidak</string>
+
 
     <string-array name="tfe_pe_camera_name">
         <item>Belakang</item>

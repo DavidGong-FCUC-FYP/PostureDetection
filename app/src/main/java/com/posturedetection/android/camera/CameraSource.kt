@@ -59,7 +59,6 @@ class CameraSource(
 
         private const val TAG = "Camera Source"
     }
-
     private val lock = Any()
     private var detector: PoseDetector? = null
     private var classifier: PoseClassifier? = null

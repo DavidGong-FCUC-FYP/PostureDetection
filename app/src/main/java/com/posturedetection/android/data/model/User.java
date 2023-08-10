@@ -1,6 +1,8 @@
 package com.posturedetection.android.data.model;
 
 
+import android.net.Uri;
+
 import androidx.annotation.NonNull;
 
 import com.posturedetection.android.data.LoginUser;
@@ -25,7 +27,18 @@ public class User extends LitePalSupport {
     private String phone;
     private String password;
     private Integer remember;
-    private byte[] portrait;
+
+    private Uri imgUrl;
+
+    public Uri getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(Uri imgUrl) {
+        this.imgUrl = imgUrl;
+    }
+
+    //    private byte[] portrait;
     private String region;
     private String gender;
     private String birthday;
@@ -47,13 +60,13 @@ public class User extends LitePalSupport {
         }
     }
 
-    public byte[] getPortrait() {
-        return portrait;
-    }
-
-    public void setPortrait(byte[] portrait) {
-        this.portrait = portrait;
-    }
+//    public byte[] getPortrait() {
+//        return portrait;
+//    }
+//
+//    public void setPortrait(byte[] portrait) {
+//        this.portrait = portrait;
+//    }
 
     public String getRegion() {
         return region;

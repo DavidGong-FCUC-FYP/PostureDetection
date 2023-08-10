@@ -1,6 +1,7 @@
 package com.posturedetection.android.data;
 
 import android.app.Application;
+import android.net.Uri;
 
 import com.posturedetection.android.data.model.User;
 
@@ -17,7 +18,19 @@ public class LoginUser extends Application {
     private String email;
     private String phone;
     private String password;
-    private byte[] portrait;
+
+    public Uri getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(Uri imgUrl) {
+        this.imgUrl = imgUrl;
+    }
+
+    private Uri imgUrl;
+
+
+//private byte[] portrait;
 
     private String region;
     private String gender;
@@ -45,7 +58,7 @@ public class LoginUser extends Application {
             _user.setName(this.name);
             _user.setEmail(this.email);
             _user.setPhone(this.phone);
-            _user.setPortrait(this.portrait);
+            _user.setImgUrl(this.imgUrl);
             _user.setGender(this.gender);
             _user.setRegion(this.region);
             _user.setBirthday(this.birthday);
@@ -60,7 +73,7 @@ public class LoginUser extends Application {
         login_user.name = _user.getName();
         login_user.email = _user.getEmail();
         login_user.phone = _user.getPhone();
-        login_user.portrait = _user.getPortrait();
+        login_user.imgUrl = _user.getImgUrl();
         login_user.gender = _user.getGender();
         login_user.region = _user.getRegion();
         login_user.birthday = _user.getBirthday();
@@ -72,7 +85,7 @@ public class LoginUser extends Application {
         login_user.name = null;
         login_user.email = null;
         login_user.phone = null;
-        login_user.portrait = null;
+        login_user.imgUrl = null;
         login_user.region = null;
         login_user.gender = null;
         login_user.birthday = null;
@@ -85,7 +98,7 @@ public class LoginUser extends Application {
         login_user.name = user.getName();
         login_user.email = user.getEmail();
         login_user.phone = user.getPhone();
-        login_user.portrait = user.getPortrait();
+        login_user.imgUrl = user.getImgUrl();
         login_user.region = user.getRegion();
         login_user.gender = user.getGender();
         login_user.birthday = user.getBirthday();
@@ -146,13 +159,6 @@ public class LoginUser extends Application {
         this.password = password;
     }
 
-    public byte[] getPortrait() {
-        return portrait;
-    }
-
-    public void setPortrait(byte[] portrait) {
-        this.portrait = portrait;
-    }
 
     public String getRegion() {
         return region;
@@ -177,4 +183,6 @@ public class LoginUser extends Application {
     public void setBirthday(String birthday) {
         this.birthday = birthday;
     }
+
+
 }

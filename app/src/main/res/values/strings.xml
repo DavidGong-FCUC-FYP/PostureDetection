@@ -94,6 +94,15 @@
     <!--Day-->
     <string name="day">Ds Ago</string>
 
+    <!--AlertDialog-->
+    <!--save-->
+    <string name="confirm_save">Confirm Save</string>
+    <!--restart  "Are you sure you want to save and restart the app?"-->
+    <string name="confirm_save_and_restart">Are you sure you want to save and restart the app?</string>
+    <!--Yes-->
+    <string name="yes">Yes</string>
+    <!--No-->
+    <string name="no">No</string>
 
     <string-array name="tfe_pe_device_name" translatable="false">
         <item>CPU</item>

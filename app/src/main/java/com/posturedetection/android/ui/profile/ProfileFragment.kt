@@ -30,7 +30,7 @@ class ProfileFragment : Fragment() {
     private var loginUser: LoginUser = LoginUser.getInstance()
     override fun onResume() {
         super.onResume()
-        binding.userImg.setImageBitmap(PhotoUtils().byte2bitmap(loginUser.portrait))
+        binding.userImg.setImageURI(loginUser.imgUrl)
     }
 
     override fun onCreateView(
@@ -43,7 +43,7 @@ class ProfileFragment : Fragment() {
         auth = FirebaseAuth.getInstance()
         val root: View = binding.root
         loginUser.reinit()
-        binding.userImg.setImageBitmap(PhotoUtils().byte2bitmap(loginUser.portrait))
+        binding.userImg.setImageURI(loginUser.imgUrl)
         binding.profileUsername.text = loginUser.name
         binding.profileEmail.text = loginUser.email
 

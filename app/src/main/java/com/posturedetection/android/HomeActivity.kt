@@ -153,16 +153,20 @@ class HomeActivity : AppCompatActivity() {
             when (it.itemId) {
                 R.id.navigation_detection -> {
                     // Start the Home activity
-                    finish()
+
                     startActivity(Intent(this, HomeActivity::class.java))
                     true
                 }
                 R.id.navigation_statistics -> {
+                    cameraSource?.close()
+                    cameraSource = null
                     showFragment(StatisticsFragment())
                     statisticsViewModel.counterData.reset()
                     true
                 }
                 R.id.navigation_profile -> {
+                    cameraSource?.close()
+                    cameraSource = null
                     showFragment(ProfileFragment())
                     true
                 }
@@ -194,14 +198,15 @@ class HomeActivity : AppCompatActivity() {
     }
 
     override fun onResume() {
-        cameraSource?.resume()
         super.onResume()
+       // openCamera()
+        cameraSource?.resume()
     }
 
     override fun onPause() {
+        super.onPause()
         cameraSource?.close()
         cameraSource = null
-        super.onPause()
     }
 
     /** 检查相机权限是否有授权 */
@@ -464,6 +469,8 @@ class HomeActivity : AppCompatActivity() {
             .replace(R.id.container, fragment)
             .commit()
     }
+
+
 
 
 }
