@@ -6,7 +6,6 @@ import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.LocaleList
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.util.Log
@@ -17,8 +16,6 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.os.LocaleListCompat
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -28,14 +25,12 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.database.FirebaseDatabase
 import com.google.gson.Gson
-import com.posturedetection.android.data.Camera
-import com.posturedetection.android.data.Device
 import com.posturedetection.android.data.LoginUser
 import com.posturedetection.android.data.model.AccountSettings
 import com.posturedetection.android.data.model.User
 import com.posturedetection.android.databinding.ActivityLoginBinding
 import com.posturedetection.android.util.ActivityCollector
-import com.posturedetection.android.util.ChangeLanguageUtil
+import com.posturedetection.android.util.AccountSettingsUtil
 import com.posturedetection.android.util.MD5
 import com.posturedetection.android.util.PhotoUtils
 import com.posturedetection.android.util.ToastUtils
@@ -75,8 +70,8 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(binding.root)
         ActivityCollector.addActivity(this)
 
-        val locales = LocaleListCompat.forLanguageTags("en")
-        AppCompatDelegate.setApplicationLocales(locales)
+//        val locales = LocaleListCompat.forLanguageTags("en")
+//        AppCompatDelegate.setApplicationLocales(locales)
 
         auth = FirebaseAuth.getInstance()
         database = FirebaseDatabase.getInstance()
@@ -93,10 +88,14 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         register.setOnClickListener(this)
         ivEye.setOnClickListener(this)
         ivMoreAccount.setOnClickListener(this)
-
+//
         val sp = getSharedPreferences("account_settings", MODE_PRIVATE)
         var account_settings_json = sp.getString("account_settings", null)
-        ChangeLanguageUtil().changeLanguage(account_settings_json?:"")
+        if (account_settings_json != null){
+            gson.fromJson(account_settings_json, AccountSettings::class.java)?.let {
+                AccountSettingsUtil.init(it)
+            }
+        }
 
 //        if (account_settings_json != null){
 //            var gson = Gson()

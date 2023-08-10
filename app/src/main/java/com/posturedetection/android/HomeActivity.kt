@@ -26,6 +26,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.os.LocaleListCompat
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.google.gson.Gson
 import com.posturedetection.android.camera.CameraSource
@@ -38,14 +39,16 @@ import com.posturedetection.android.ml.MoveNet
 import com.posturedetection.android.ml.PoseClassifier
 import com.posturedetection.android.ui.profile.ProfileFragment
 import com.posturedetection.android.ui.statistics.StatisticsFragment
+import com.posturedetection.android.ui.statistics.StatisticsViewModel
 import com.posturedetection.android.util.ActivityCollector
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import reset
 
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHomeBinding
-
+    private lateinit var statisticsViewModel: StatisticsViewModel
     companion object {
         private const val FRAGMENT_DIALOG = "dialog"
     }
@@ -63,6 +66,8 @@ class HomeActivity : AppCompatActivity() {
     private var crosslegCounter = 0
     private var standardCounter = 0
     private var missingCounter = 0
+
+
 
     /** 定义一个历史姿态寄存器 */
     private var poseRegister = "standard"
@@ -122,6 +127,8 @@ class HomeActivity : AppCompatActivity() {
         setContentView(binding.root)
         ActivityCollector.addActivity(this)
 
+        statisticsViewModel = ViewModelProvider(this).get(StatisticsViewModel::class.java)
+
         //get sp
         val sp = getSharedPreferences("account_settings", MODE_PRIVATE)
         var account_settings_json = sp.getString("account_settings", null)
@@ -138,20 +145,6 @@ class HomeActivity : AppCompatActivity() {
                     0 -> selectedCamera = Camera.BACK
                     1 -> selectedCamera = Camera.FRONT
                 }
-//                var language = "en"
-//                when(accountSettings.language){
-//                    0 -> {
-//                        language = "en"
-//                    }
-//                    1 -> {
-//                        language = "zh"
-//                    }
-//                    2 -> {
-//                        language = "ms"
-//                    }
-//                }
-//                val locales = LocaleListCompat.forLanguageTags(language)
-//                AppCompatDelegate.setApplicationLocales(locales)
             }
         }
 
@@ -166,6 +159,7 @@ class HomeActivity : AppCompatActivity() {
                 }
                 R.id.navigation_statistics -> {
                     showFragment(StatisticsFragment())
+                    statisticsViewModel.counterData.reset()
                     true
                 }
                 R.id.navigation_profile -> {
@@ -255,6 +249,7 @@ class HomeActivity : AppCompatActivity() {
                                         standardCounter = 0
                                         if (poseRegister == "forwardhead") {
                                             forwardheadCounter++
+                                            statisticsViewModel.counterData.forwardheadCounter++
                                         }
                                         poseRegister = "forwardhead"
 
@@ -285,6 +280,7 @@ class HomeActivity : AppCompatActivity() {
                                         standardCounter = 0
                                         if (poseRegister == "crossleg") {
                                             crosslegCounter++
+                                            statisticsViewModel.counterData.crosslegCounter++
                                         }
                                         poseRegister = "crossleg"
 
@@ -315,6 +311,7 @@ class HomeActivity : AppCompatActivity() {
                                         crosslegCounter = 0
                                         if (poseRegister == "standard") {
                                             standardCounter++
+                                            statisticsViewModel.counterData.standardCounter++
                                         }
                                         poseRegister = "standard"
 

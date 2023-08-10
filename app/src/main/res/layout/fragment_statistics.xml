@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.statistics.StatisticsFragment"
-    android:background="#ececec">
+    android:background="#ececec"
+    >
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/mytablayout2"

@@ -8,13 +8,18 @@
     <string name="title_activity_home">HomeActivity</string>
 
     <!--Persoanl Information-->
-    <string name="personal_information">Personal Information</string>
+    <string name="personal_information">Maklumat peribadi</string>
     <!--Account Settings-->
-    <string name="account_settings">Account Settings</string>
+    <string name="account_settings">Tetapan Akaun</string>
     <!--Download Report-->
-    <string name="download_report">Download Report</string>
+    <string name="download_report">Muat Turun Laporan</string>
     <!--Logout-->
-    <string name="logout">Logout</string>
+    <string name="logout">Log keluar</string>
+
+    <!--Sitting analysis-->
+    <string name="sitting_analysis">Analisis Duduk</string>
+    <!--historical data-->
+    <string name="historical_data">Data Sejarah</string>
 
     <string name="tfe_pe_request_permission">Aplikasi ini memerlukan izin kamera.</string>
     <string name="tfe_pe_tv_score">Skor: %.2f</string>
@@ -76,6 +81,13 @@
     <string name="working_time_is_over">Masa kerja sudah berakhir. Ambil rehat!</string>
     <!--"Break time is over. Let's get back to work!"-->
     <string name="break_time_is_over">Masa rehat sudah berakhir. Mari kita kembali bekerja!</string>
+
+    <!--Hari ini-->
+    <string name="today">Hari ini</string>
+    <!--Semalam-->
+    <string name="yesterday">Semalam</string>
+    <!--Hari-->
+    <string name="day">Hari Lalu</string>
 
 
     <string-array name="tfe_pe_camera_name">

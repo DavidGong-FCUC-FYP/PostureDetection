@@ -1,11 +1,13 @@
 package com.posturedetection.android.ui.statistics
 
+import StatisticsDataUtils
 import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
@@ -26,6 +28,8 @@ class PieChartFragment : Fragment() {
 
     private var _binding: FragmentPieChartBinding? = null
 
+
+
     private val binding get() = _binding!!
 
     // TODO: Rename and change types of parameters
@@ -34,6 +38,7 @@ class PieChartFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
@@ -48,20 +53,25 @@ class PieChartFragment : Fragment() {
         _binding = FragmentPieChartBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+        var counter = StatisticsDataUtils.getLastEntry(requireContext())
         val pieChart = binding.pieChart
         // Inflate the layout for this fragment
 
-
         val list:ArrayList<PieEntry> = ArrayList()
 
-        list.add(PieEntry(100f,"100"))
-        list.add(PieEntry(101f,"101"))
-        list.add(PieEntry(102f,"102"))
-        list.add(PieEntry(103f,"103"))
-        list.add(PieEntry(104f,"104"))
+        if (counter != null) {
+            list.add(PieEntry(counter.standardCounter,"Stander"))
+            list.add(PieEntry(counter.crosslegCounter,"Cross leg"))
+            list.add(PieEntry(counter.forwardheadCounter,"Forward Head"))
+            list.add(PieEntry(counter.missingCounter,"Missing"))
+        }else{
+            list.add(PieEntry(4f,"Stander"))
+            list.add(PieEntry(3f,"Cross leg"))
+            list.add(PieEntry(2f,"Forward Head"))
+            list.add(PieEntry(1f,"Missing"))
+        }
 
-        val pieDataSet= PieDataSet(list,"List")
-
+        val pieDataSet= PieDataSet(list,"Sitting Posture Analysis")
         pieDataSet.setColors(ColorTemplate.MATERIAL_COLORS,255)
         pieDataSet.valueTextColor= Color.BLACK
         pieDataSet.valueTextSize=15f
@@ -72,7 +82,7 @@ class PieChartFragment : Fragment() {
 
         pieChart.description.text= "Pie Chart"
 
-        pieChart.centerText="List"
+        pieChart.centerText="Sitting Posture Analysis"
 
         pieChart.animateY(2000)
 

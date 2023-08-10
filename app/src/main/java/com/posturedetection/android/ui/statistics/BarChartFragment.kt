@@ -1,16 +1,23 @@
 package com.posturedetection.android.ui.statistics
 
+import StatisticsDataUtils
 import android.graphics.Color
+import android.graphics.Matrix
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.utils.ColorTemplate
+import com.posturedetection.android.R
 import com.posturedetection.android.databinding.FragmentBarChartBinding
+import com.posturedetection.android.widget.CustomXAxisValueFormatter
+import toDataArray
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -47,35 +54,83 @@ class BarChartFragment : Fragment() {
 
         _binding = FragmentBarChartBinding.inflate(inflater, container, false)
         val root: View = binding.root
+        var counterList = StatisticsDataUtils.getLast30Entries(requireContext())
 
         val barChart = binding.barChart
-
         val list: ArrayList<BarEntry> = ArrayList()
 
-        list.add(BarEntry(100f,100f))
-        list.add(BarEntry(101f,200f))
-        list.add(BarEntry(102f,300f))
-        list.add(BarEntry(103f,400f))
-        list.add(BarEntry(104f,500f))
+        //for counterList then add to list
+        for (i in 0 until counterList.size) {
+            list.add(BarEntry(i.toFloat(), counterList[i].toDataArray()))
+        }
 
-
-        val barDataSet= BarDataSet(list,"List")
+        val barDataSet= BarDataSet(list, "Data Set")
 
         barDataSet.setColors(ColorTemplate.MATERIAL_COLORS,255)
         barDataSet.valueTextColor= Color.BLACK
-
+        barDataSet.valueTextSize= 12f
         val barData= BarData(barDataSet)
 
+
         barChart.setFitBars(true)
-
+        barChart.description.text= ""
+        barData.barWidth= 0.7f
+        barChart.isDragEnabled = true
         barChart.data= barData
+        barChart.setVisibleXRangeMaximum(6f)
+        barChart.setScaleEnabled(false);
+       // barChart.setExtraLeftOffset(10f);
+        barChart.setExtraTopOffset(5f);
+        barChart.setExtraBottomOffset(60f);
 
-        barChart.description.text= "Bar Chart"
+        barChart.animateY(1000)
 
-        barChart.animateY(2000)
+        val yAxisLeft = barChart.axisLeft
+        yAxisLeft.axisMinimum = 0f // Set the minimum value for the Y-axis
+        val yAxisRight = barChart.axisRight
+        yAxisRight.axisMinimum = 0f // Set the minimum value for the Y-axis
 
+        var xAxis = barChart.xAxis
+        xAxis.setDrawGridLines(false);
+        xAxis.textSize = 11f
+        xAxis.labelCount = list.size
+        xAxis.granularity = 1f
+       // val xLabels = listOf("Label1", "Label2", "Label3") // Replace with your labels
+
+        xAxis.position = XAxis.XAxisPosition.BOTTOM
+        xAxis.labelRotationAngle = 60f
+
+        val xLabels = generateDateLabels(list.size)
+        barChart.xAxis.valueFormatter = CustomXAxisValueFormatter(xLabels)
+
+        val m = Matrix()
+        m.postScale(scaleNum(list.size), 1f);
+        barChart.getViewPortHandler().refresh(m, barChart, false);
         // Inflate the layout for this fragment
         return root
+    }
+
+    private val scalePercent = 4f / 30f
+
+    private fun scaleNum(xCount: Int): Float {
+        return xCount * scalePercent
+    }
+
+
+    fun generateDateLabels(numDays: Int): List<String> {
+        val labels = mutableListOf<String>()
+        for (i in 0 until numDays) {
+            if (i == 0) {
+                labels.add(getString(R.string.today))
+            } else if (i == 1) {
+                labels.add(getString(R.string.yesterday))
+            } else {
+                labels.add( i.toString() +" "+ getString(R.string.day))
+            }
+        }
+
+        labels.reverse()
+        return labels
     }
 
     companion object {

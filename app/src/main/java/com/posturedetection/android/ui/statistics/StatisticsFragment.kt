@@ -1,6 +1,9 @@
 package com.posturedetection.android.ui.statistics
 
+import StatisticsDataUtils
+import android.content.res.Configuration
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,22 +13,29 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import com.posturedetection.android.R
 import com.posturedetection.android.databinding.FragmentStatisticsBinding
+import reset
 
 class StatisticsFragment : Fragment() {
 
     private var _binding: FragmentStatisticsBinding? = null
-
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val statisticsViewModel =  ViewModelProvider(this).get(StatisticsViewModel::class.java)
+        StatisticsDataUtils.writeCounterToSharedPreferences(requireContext(), statisticsViewModel.counterData)
+        statisticsViewModel.counterData.reset()
+
+
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val statisticsViewModel =
-            ViewModelProvider(this).get(StatisticsViewModel::class.java)
 
         _binding = FragmentStatisticsBinding.inflate(inflater, container, false)
 
@@ -42,7 +52,11 @@ class StatisticsFragment : Fragment() {
 
     private fun setupTabLayout() {
         var tabIcon = arrayOf(R.drawable.ic_pie_chart,R.drawable.ic_bar_chart);
-        var tabTitleList = arrayOf("Pie Chart","Bar Chart");
+        var sittingAnalysis = getString(R.string.sitting_analysis)
+        var historicalData = getString(R.string.historical_data)
+        Log.d("TAG", "setupTabLayout: "+sittingAnalysis)
+        Log.d("TAG", "setupTabLayout: "+historicalData)
+        var tabTitleList = arrayOf(sittingAnalysis, historicalData);
         TabLayoutMediator(
             binding.mytablayout2, binding.myviepage2
         ) { tab, position ->

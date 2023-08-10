@@ -1,32 +1,19 @@
 package com.posturedetection.android
 
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.PendingIntent
-import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
-import android.media.RingtoneManager
-import android.os.Build
 import android.os.Bundle
-import android.os.CountDownTimer
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SwitchCompat
-import androidx.core.app.NotificationCompat
 import androidx.core.os.LocaleListCompat
 import com.google.android.material.button.MaterialButtonToggleGroup
 import com.google.gson.Gson
-import com.posturedetection.android.data.LoginUser
 import com.posturedetection.android.data.model.AccountSettings
 import com.posturedetection.android.databinding.ActivityAccountSettingsBinding
 import com.posturedetection.android.util.ActivityCollector
-import com.posturedetection.android.util.ChangeLanguageUtil
-import com.posturedetection.android.util.ToastUtils
+import com.posturedetection.android.util.AccountSettingsUtil
 import com.posturedetection.android.widget.TitleLayout
-import com.savvyapps.togglebuttonlayout.ToggleButtonLayout
-import java.util.Locale
 
 class AccountSettingsActivity : AppCompatActivity() {
 
@@ -39,24 +26,21 @@ class AccountSettingsActivity : AppCompatActivity() {
     private lateinit var mbtgCamera: MaterialButtonToggleGroup
     private lateinit var mbtgLanguage: MaterialButtonToggleGroup
     private lateinit var ssPomoTimer: SwitchCompat
-
+    private var language = "en"
 
     //PomoTimer
-    private lateinit var timer: CountDownTimer
-    private var isTimerRunning = false
-    private var timeLeftInMillis = 0L
-    //test try 30s
-    private var workingTime = 30000L // 25 minutes in milliseconds
-    //private var workingTime = 1500000L // 25 minutes in milliseconds
-    private var relaxationTime = 300000L // 5 minutes in milliseconds
+//    private lateinit var timer: CountDownTimer
+//    private var isTimerRunning = false
+//    private var timeLeftInMillis = 0L
+//    //test try 30s
+//    private var workingTime = 30000L // 25 minutes in milliseconds
+//    //private var workingTime = 1500000L // 25 minutes in milliseconds
+//    private var relaxationTime = 300000L // 5 minutes in milliseconds
 
 
 
     //AccountSettings
     private var accountSettings: AccountSettings = AccountSettings(0, 0, 0, 0, false)
-
-    //get LoginUser
-    private var loginUser: LoginUser? = LoginUser.getInstance()
 
     //SharedPreferences
     private lateinit var sp: SharedPreferences
@@ -80,7 +64,7 @@ class AccountSettingsActivity : AppCompatActivity() {
 
         sp = getSharedPreferences("account_settings", MODE_PRIVATE)
         var account_settings_json = sp.getString("account_settings", null)
-        ChangeLanguageUtil().changeLanguage(account_settings_json?:"")
+      //  AccountSettingsUtil().init(account_settings_json?:"")
 
         if (account_settings_json != null){
             //from sp to get AccountSettings
@@ -104,14 +88,6 @@ class AccountSettingsActivity : AppCompatActivity() {
         mbtgThemeAppearance.addOnButtonCheckedListener { group, checkedId, isChecked ->
             if (isChecked) {
                 accountSettings.themeAppearance = group.indexOfChild(group.findViewById(checkedId))
-                when (accountSettings.themeAppearance) {
-                    0 -> {
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                    }
-                    1 -> {
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                    }
-                }
             }
         }
 
@@ -125,20 +101,6 @@ class AccountSettingsActivity : AppCompatActivity() {
         mbtgLanguage.addOnButtonCheckedListener { group, checkedId, isChecked ->
             if (isChecked) {
                 accountSettings.language = group.indexOfChild(group.findViewById(checkedId))
-                var language = "en"
-                when(accountSettings.language){
-                    0 -> {
-                        language = "en"
-                    }
-                    1 -> {
-                        language = "zh"
-                    }
-                    2 -> {
-                        language = "ms"
-                    }
-                }
-                val locales = LocaleListCompat.forLanguageTags(language)
-                AppCompatDelegate.setApplicationLocales(locales)
             }
         }
 
@@ -153,6 +115,7 @@ class AccountSettingsActivity : AppCompatActivity() {
 //        }
 
         titleLayout.iv_save.setOnClickListener {
+            AccountSettingsUtil.init(accountSettings)
             sp.edit().putString("account_settings", gson.toJson(accountSettings)).apply()
             //show Toast
             Toast.makeText(this, R.string.save_success, Toast.LENGTH_SHORT).show()

@@ -1,17 +1,11 @@
 package com.posturedetection.android
 
-import android.annotation.SuppressLint
-import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.EditText
-import android.widget.TextView
-import com.posturedetection.android.R
 import com.posturedetection.android.data.LoginUser
 import com.posturedetection.android.databinding.ActivityEditItemBinding
-import com.posturedetection.android.databinding.ActivityHomeBinding
 import com.posturedetection.android.util.ActivityCollector
-import com.posturedetection.android.util.ChangeLanguageUtil
 import com.posturedetection.android.widget.TitleLayout
 
 class EditItemActivity : AppCompatActivity() {

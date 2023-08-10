@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "914524022254",
+    "firebase_url": "https://david-fyp-posturedetection-default-rtdb.asia-southeast1.firebasedatabase.app",
     "project_id": "david-fyp-posturedetection",
     "storage_bucket": "david-fyp-posturedetection.appspot.com"
   },
@@ -13,6 +14,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "914524022254-5mae3sn6303o3bodun3vsjp1877pc77k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.posturedetection.android",
+            "certificate_hash": "bf87537b2bbb3f8481535eac3c9a99788b1d452f"
+          }
+        },
         {
           "client_id": "914524022254-fb9noptjnmk6i8pcage223c8t6g3fn3o.apps.googleusercontent.com",
           "client_type": 3

@@ -15,6 +15,11 @@
     <!--Logout-->
     <string name="logout">Logout</string>
 
+    <!--Sitting analysis-->
+    <string name="sitting_analysis">Sitting Analysis</string>
+    <!--historical data-->
+    <string name="historical_data">Historical Data</string>
+
 
 
     <string name="tfe_pe_request_permission">This app needs camera permission.</string>
@@ -80,6 +85,14 @@
     <string name="working_time_is_over">Working time is over. Take a break!</string>
     <!--"Break time is over. Let's get back to work!"-->
     <string name="break_time_is_over">Break time is over. Start working!</string>
+
+
+    <!--Today-->
+    <string name="today">Today</string>
+    <!--Yesterday-->
+    <string name="yesterday">Yesterday</string>
+    <!--Day-->
+    <string name="day">Ds Ago</string>
 
 
     <string-array name="tfe_pe_device_name" translatable="false">

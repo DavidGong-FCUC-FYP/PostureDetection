@@ -38,7 +38,6 @@ import com.google.gson.reflect.TypeToken;
 import com.posturedetection.android.data.LoginUser;
 import com.posturedetection.android.data.model.AccountSettings;
 import com.posturedetection.android.util.ActivityCollector;
-import com.posturedetection.android.util.ChangeLanguageUtil;
 import com.posturedetection.android.util.CityBean;
 import com.posturedetection.android.util.PhotoUtils;
 import com.posturedetection.android.util.ProvinceBean;
@@ -134,7 +133,7 @@ public class PersonalInformationActivity extends AppCompatActivity implements Vi
             public void onClick(View v) {
                 loginUser.update();
                 setResult(RESULT_OK);
-                String sv = String.valueOf(R.string.save_success);
+                String sv = getString(R.string.save_success);
                 mToast.showShort(PersonalInformationActivity.this,sv);
                //back to previous activity
                 //onDestroy();

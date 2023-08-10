@@ -51,7 +51,6 @@ class ProfileFragment : Fragment() {
             var intent = Intent()
             intent.setClass(requireActivity(), PersonalInformationActivity::class.java)
             startActivity(intent)
-
         })
 
         binding.btnAccountSettings.setOnClickListener(View.OnClickListener {
@@ -65,11 +64,6 @@ class ProfileFragment : Fragment() {
             //close the app
             requireActivity().finish()
         }
-
-//        val textView: TextView = binding.textNotifications
-//        profileViewModel.text.observe(viewLifecycleOwner) {
-//            textView.text = it
-//        }
         return root
     }
 

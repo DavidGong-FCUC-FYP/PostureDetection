@@ -1,14 +1,12 @@
 package com.posturedetection.android.ui.statistics
 
+import Counter
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 
 class StatisticsViewModel : ViewModel() {
-
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is Statistics Fragment"
-    }
-    val text: LiveData<String> = _text
-
+    val counterData = Counter()
 }
