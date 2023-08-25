@@ -6,20 +6,23 @@ import android.app.TimePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.graphics.Color
 import android.os.Bundle
+import android.os.SystemClock
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SwitchCompat
-import androidx.core.os.LocaleListCompat
+import com.bigkoo.pickerview.builder.OptionsPickerBuilder
+import com.bigkoo.pickerview.view.OptionsPickerView
 import com.google.android.material.button.MaterialButtonToggleGroup
 import com.google.gson.Gson
 import com.posturedetection.android.data.model.AccountSettings
 import com.posturedetection.android.databinding.ActivityAccountSettingsBinding
 import com.posturedetection.android.receiver.AlarmReceiver
-import com.posturedetection.android.util.ActivityCollector
 import com.posturedetection.android.util.AccountSettingsUtil
+import com.posturedetection.android.util.ActivityCollector
 import com.posturedetection.android.widget.TitleLayout
 import java.util.Calendar
 
@@ -39,6 +42,7 @@ class AccountSettingsActivity : AppCompatActivity() {
 
     private lateinit var alarmManager: AlarmManager
     private lateinit var pendingIntent: PendingIntent
+    private lateinit var pvOptions:OptionsPickerView<String>
 
     //PomoTimer
 //    private lateinit var timer: CountDownTimer
@@ -65,7 +69,7 @@ class AccountSettingsActivity : AppCompatActivity() {
 
         alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(this, AlarmReceiver::class.java)
-        pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0)
+        pendingIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_MUTABLE)
 
 
         titleLayout = binding.tlTitle
@@ -77,7 +81,7 @@ class AccountSettingsActivity : AppCompatActivity() {
         mbtgCamera = binding.mbtgCamera
         mbtgLanguage = binding.mbtgLanguage
         ssReminderSwitch = binding.ssReminderSwitch
-        //ssPomoTimer = binding.ssPomoTimer
+        ssPomoTimer = binding.ssPomoTimer
 
 
         sp = getSharedPreferences("account_settings", MODE_PRIVATE)
@@ -92,7 +96,7 @@ class AccountSettingsActivity : AppCompatActivity() {
                 mbtgThemeAppearance.check(mbtgThemeAppearance.getChildAt(accountSettings.themeAppearance).id)
                 mbtgCamera.check(mbtgCamera.getChildAt(accountSettings.camera).id)
                 mbtgLanguage.check(mbtgLanguage.getChildAt(accountSettings.language).id)
-                //ssPomoTimer.isChecked = accountSettings.pomoTimer
+                ssPomoTimer.isChecked = accountSettings.pomoTimer
             }
         }
 
@@ -129,15 +133,40 @@ class AccountSettingsActivity : AppCompatActivity() {
             }
         }
 
-//        ssPomoTimer.setOnCheckedChangeListener { buttonView, isChecked ->
-//            accountSettings.pomoTimer = isChecked
-//
-//            if (isChecked) {
-//                startTimer()
-//            } else {
-//                stopTimer()
-//            }
-//        }
+        ssPomoTimer.setOnCheckedChangeListener { buttonView, isChecked ->
+            val optionsItems_pomoTimer = arrayListOf<String>("25 minutes", "30 minutes", "35 minutes", "40 minutes", "45 minutes", "50 minutes", "55 minutes", "60 minutes")
+
+            var workingTime = 0L
+            accountSettings.pomoTimer = isChecked
+            if (isChecked) {
+                //性别选择器
+                pvOptions = OptionsPickerBuilder(
+                    this@AccountSettingsActivity
+                ) { options1, option2, options3, v -> //选择了则显示并暂存LoginUser，退出时在保存至数据库
+                    val tx: String = optionsItems_pomoTimer.get(options1)
+                    workingTime = tx.substring(0, 2).toLong() * 60 * 1000
+                    //log
+                    Log.d("workingTime", workingTime.toString())
+                    //set dialog per every workingTime
+                    val calendar: Calendar = Calendar.getInstance()
+                    calendar.timeInMillis = System.currentTimeMillis()
+                    calendar.set(Calendar.HOUR_OF_DAY, 0)
+                    calendar.set(Calendar.MINUTE, 0)
+                    calendar.set(Calendar.SECOND, 0)
+                    workingTime = (1 * 60 * 1000)
+                  //  calendar.add(Calendar.MINUTE, workingTime)
+                    alarmManager.setInexactRepeating(
+                        AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                        SystemClock.elapsedRealtime() + workingTime,
+                        workingTime,
+                        pendingIntent
+                    )
+
+                }.setCancelColor(Color.GRAY).build()
+                pvOptions.setPicker(optionsItems_pomoTimer)
+                pvOptions.show()
+            }
+        }
 
         titleLayout.iv_save.setOnClickListener {
             //make a AlertDialog to confirm
