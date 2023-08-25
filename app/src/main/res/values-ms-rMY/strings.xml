@@ -100,8 +100,18 @@
     <string name="no">Tidak</string>
 
 
+    <!--Reminder Notification-->
+    <string name="reminder_notification">Peringatan</string>
+
+
     <string-array name="tfe_pe_camera_name">
         <item>Belakang</item>
         <item>Hadapan</item>
     </string-array>
+
+
+    <!--"Daily Reminder"-->
+    <string name="daily_reminder">Peringatan Harian</string>
+    <!--"Daily Reminder Context"-->
+    <string name="daily_reminder_context">Ingatkan saya untuk duduk dengan betul setiap hari</string>
 </resources>

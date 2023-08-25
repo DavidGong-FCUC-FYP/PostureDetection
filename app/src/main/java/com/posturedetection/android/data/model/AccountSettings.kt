@@ -8,5 +8,8 @@ data class AccountSettings(
 
     var themeAppearance: Int,  //0Light 1Dark
     var language: Int,//0English 1Chinese 2Malay
+    var reminder: Boolean, //0Off 1On
+    var reminderTime: String, //HH:mm
     var pomoTimer: Boolean //0Off 1On
+
 )

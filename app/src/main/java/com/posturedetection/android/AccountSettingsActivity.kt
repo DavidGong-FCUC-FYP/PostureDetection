@@ -1,5 +1,8 @@
 package com.posturedetection.android
 
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.app.TimePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -14,9 +17,11 @@ import com.google.android.material.button.MaterialButtonToggleGroup
 import com.google.gson.Gson
 import com.posturedetection.android.data.model.AccountSettings
 import com.posturedetection.android.databinding.ActivityAccountSettingsBinding
+import com.posturedetection.android.receiver.AlarmReceiver
 import com.posturedetection.android.util.ActivityCollector
 import com.posturedetection.android.util.AccountSettingsUtil
 import com.posturedetection.android.widget.TitleLayout
+import java.util.Calendar
 
 class AccountSettingsActivity : AppCompatActivity() {
 
@@ -29,7 +34,11 @@ class AccountSettingsActivity : AppCompatActivity() {
     private lateinit var mbtgCamera: MaterialButtonToggleGroup
     private lateinit var mbtgLanguage: MaterialButtonToggleGroup
     private lateinit var ssPomoTimer: SwitchCompat
+    private lateinit var ssReminderSwitch : SwitchCompat
     private var language = "en"
+
+    private lateinit var alarmManager: AlarmManager
+    private lateinit var pendingIntent: PendingIntent
 
     //PomoTimer
 //    private lateinit var timer: CountDownTimer
@@ -43,7 +52,7 @@ class AccountSettingsActivity : AppCompatActivity() {
 
 
     //AccountSettings
-    private var accountSettings: AccountSettings = AccountSettings(0, 0, 0, 0, false)
+    private var accountSettings: AccountSettings = AccountSettings(0, 0, 0, 0, false, "00:00", false)
 
     //SharedPreferences
     private lateinit var sp: SharedPreferences
@@ -54,6 +63,11 @@ class AccountSettingsActivity : AppCompatActivity() {
         setContentView(binding.root)
         ActivityCollector.addActivity(this)
 
+        alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val intent = Intent(this, AlarmReceiver::class.java)
+        pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0)
+
+
         titleLayout = binding.tlTitle
         var gson = Gson()
         titleLayout.setTextView_title("Account Settings")
@@ -62,6 +76,7 @@ class AccountSettingsActivity : AppCompatActivity() {
         mbtgThemeAppearance = binding.mbtgThemeAppearance
         mbtgCamera = binding.mbtgCamera
         mbtgLanguage = binding.mbtgLanguage
+        ssReminderSwitch = binding.ssReminderSwitch
         //ssPomoTimer = binding.ssPomoTimer
 
 
@@ -107,6 +122,13 @@ class AccountSettingsActivity : AppCompatActivity() {
             }
         }
 
+        ssReminderSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
+            accountSettings.reminder = isChecked
+            if (isChecked){
+                showTimePickerDialog()
+            }
+        }
+
 //        ssPomoTimer.setOnCheckedChangeListener { buttonView, isChecked ->
 //            accountSettings.pomoTimer = isChecked
 //
@@ -143,9 +165,43 @@ class AccountSettingsActivity : AppCompatActivity() {
     }
 
 
+
     override fun onDestroy() {
         super.onDestroy()
         ActivityCollector.removeActivity(this)
+    }
+
+    private fun showTimePickerDialog() {
+        val currentTime = Calendar.getInstance()
+        val hour = currentTime.get(Calendar.HOUR_OF_DAY)
+        val minute = currentTime.get(Calendar.MINUTE)
+
+        val timePickerDialog = TimePickerDialog(
+            this,
+            TimePickerDialog.OnTimeSetListener { _, selectedHour, selectedMinute ->
+                scheduleNotification(selectedHour, selectedMinute)
+            },
+            hour,
+            minute,
+            true
+        )
+        // Show the time picker dialog
+        timePickerDialog.show()
+    }
+
+    private fun scheduleNotification(hour: Int, minute: Int) {
+        val calendar = Calendar.getInstance()
+        calendar.set(Calendar.HOUR_OF_DAY, hour)
+        calendar.set(Calendar.MINUTE, minute)
+        calendar.set(Calendar.SECOND, 0)
+
+        // Set the alarm to fire every day at the selected time
+        alarmManager.setRepeating(
+            AlarmManager.RTC_WAKEUP,
+            calendar.timeInMillis,
+            AlarmManager.INTERVAL_DAY,
+            pendingIntent
+        )
     }
 
 
