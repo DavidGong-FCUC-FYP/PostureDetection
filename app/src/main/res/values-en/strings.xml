@@ -118,4 +118,8 @@
     <string name="daily_reminder">Daily Reminder</string>
     <!--"Daily Reminder Context"-->
     <string name="daily_reminder_context">It is time for your daily reminder</string>
+    <!--"Pomo Timer Reminder"-->
+    <string name="pomo_timer_reminder">Pomo Timer Reminder</string>
+    <!--"Pomo Timer Reminder Context"-->
+    <string name="pomo_timer_reminder_context">It is time for your pomo timer reminder</string>
 </resources>

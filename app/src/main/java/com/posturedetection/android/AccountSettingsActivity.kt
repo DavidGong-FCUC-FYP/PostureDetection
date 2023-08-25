@@ -21,6 +21,7 @@ import com.google.gson.Gson
 import com.posturedetection.android.data.model.AccountSettings
 import com.posturedetection.android.databinding.ActivityAccountSettingsBinding
 import com.posturedetection.android.receiver.AlarmReceiver
+import com.posturedetection.android.receiver.PomoTimerAlarmReceiver
 import com.posturedetection.android.util.AccountSettingsUtil
 import com.posturedetection.android.util.ActivityCollector
 import com.posturedetection.android.widget.TitleLayout
@@ -42,6 +43,7 @@ class AccountSettingsActivity : AppCompatActivity() {
 
     private lateinit var alarmManager: AlarmManager
     private lateinit var pendingIntent: PendingIntent
+    private lateinit var pomoPendingIntent: PendingIntent
     private lateinit var pvOptions:OptionsPickerView<String>
 
     //PomoTimer
@@ -69,7 +71,9 @@ class AccountSettingsActivity : AppCompatActivity() {
 
         alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(this, AlarmReceiver::class.java)
-        pendingIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_MUTABLE)
+        val pomoIntent = Intent(this, PomoTimerAlarmReceiver::class.java)
+        pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0)
+        pomoPendingIntent = PendingIntent.getBroadcast(this, 0, pomoIntent, 0)
 
 
         titleLayout = binding.tlTitle
@@ -130,6 +134,8 @@ class AccountSettingsActivity : AppCompatActivity() {
             accountSettings.reminder = isChecked
             if (isChecked){
                 showTimePickerDialog()
+            }else{
+                alarmManager.cancel(pendingIntent)
             }
         }
 
@@ -159,12 +165,15 @@ class AccountSettingsActivity : AppCompatActivity() {
                         AlarmManager.ELAPSED_REALTIME_WAKEUP,
                         SystemClock.elapsedRealtime() + workingTime,
                         workingTime,
-                        pendingIntent
+                        pomoPendingIntent
                     )
 
                 }.setCancelColor(Color.GRAY).build()
                 pvOptions.setPicker(optionsItems_pomoTimer)
                 pvOptions.show()
+            }else{
+                //cancel alarm
+                alarmManager.cancel(pomoPendingIntent)
             }
         }
 
@@ -219,6 +228,9 @@ class AccountSettingsActivity : AppCompatActivity() {
     }
 
     private fun scheduleNotification(hour: Int, minute: Int) {
+        Log.d("hour", hour.toString())
+        Log.d("minute", minute.toString())
+
         val calendar = Calendar.getInstance()
         calendar.set(Calendar.HOUR_OF_DAY, hour)
         calendar.set(Calendar.MINUTE, minute)

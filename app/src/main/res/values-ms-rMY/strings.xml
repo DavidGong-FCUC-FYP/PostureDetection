@@ -114,4 +114,8 @@
     <string name="daily_reminder">Peringatan Harian</string>
     <!--"Daily Reminder Context"-->
     <string name="daily_reminder_context">Ingatkan saya untuk duduk dengan betul setiap hari</string>
+    <!--"Pomo Timer Reminder"-->
+    <string name="pomo_timer_reminder">Pomo Timer Pengingat</string>
+    <!--"Pomo Timer Reminder Context"-->
+    <string name="pomo_timer_reminder_context">Ingatkan saya untuk duduk dengan betul setiap kali saya menggunakan Pomodoro Timer</string>
 </resources>

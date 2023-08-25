@@ -12,17 +12,17 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.posturedetection.android.R
 
-class AlarmReceiver : BroadcastReceiver() {
+class PomoTimerAlarmReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         showNotification(context)
     }
 
     private fun showNotification(context: Context) {
-        val notificationChannelId = "reminder"
+        val notificationChannelId = "pomoTimer"
         val builder = NotificationCompat.Builder(context, notificationChannelId)
             .setSmallIcon(R.drawable.ic_notifications)
-            .setContentTitle(context.getString(R.string.daily_reminder))
-            .setContentText(context.getString(R.string.daily_reminder_context))
+            .setContentTitle(context.getString(R.string.pomo_timer_reminder))
+            .setContentText(context.getString(R.string.pomo_timer_reminder_context))
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
 
         val notificationManager = NotificationManagerCompat.from(context)
@@ -30,7 +30,7 @@ class AlarmReceiver : BroadcastReceiver() {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             val notificationChannel = NotificationChannel(
                 notificationChannelId,
-                "Daily Reminder",
+                "Pomo Timer Reminder",
                 NotificationManager.IMPORTANCE_DEFAULT
             )
             notificationManager.createNotificationChannel(notificationChannel)
@@ -51,6 +51,6 @@ class AlarmReceiver : BroadcastReceiver() {
             // for ActivityCompat#requestPermissions for more details.
             return
         }
-        notificationManager.notify(321, builder.build())
+        notificationManager.notify(123, builder.build())
     }
 }
