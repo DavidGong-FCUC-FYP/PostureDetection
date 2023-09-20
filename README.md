@@ -15,6 +15,6 @@ www.posturedetection.com
 3. login with your google account or create a new account
 4. go to main page will show the camera view
 5. will use the camera to detect your posture
-   5.1 here have three mode to detect(CPU,GPU, NNAPI-this is for 8gen1 or 2)
+   - 5.1 here have three mode to detect(CPU,GPU, NNAPI-this is for 8gen1 or 2)
 6. analyse the data and give you a score
 7. profile page will show your profile and your settings.
