@@ -235,7 +235,6 @@
         </com.google.android.material.button.MaterialButtonToggleGroup>
 
     </LinearLayout>
-
     <!-- Add the divider between LinearLayouts -->
     <View
         android:layout_width="match_parent"
@@ -243,37 +242,75 @@
         android:background="@drawable/divider" />
     <!--pomodoro_alarm-->
 
-<!--    <LinearLayout-->
-<!--        android:id="@+id/ll_pomodoro_alarm"-->
-<!--        android:layout_marginTop="16dp"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:orientation="horizontal"-->
-<!--        android:padding="16dp">-->
+    <LinearLayout
+        android:id="@+id/ll_reminder"
+        android:layout_marginTop="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp">
 
-<!--        <TextView-->
-<!--            android:id="@+id/tv_pomodoro_timer"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_gravity="center"-->
-<!--            android:layout_weight="1"-->
-<!--            android:textSize="@dimen/pickerview_textsize"-->
-<!--            android:text="@string/pomodoro_alarm" />-->
+        <TextView
+            android:id="@+id/tv_reminder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:textSize="@dimen/pickerview_textsize"
+            android:text="@string/reminder_notification" />
 
-<!--        <androidx.appcompat.widget.SwitchCompat-->
-<!--            android:id="@+id/ss_pomo_timer"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:checked="false"-->
-<!--            android:layout_marginRight="60dp"-->
-<!--            android:textSize="@dimen/pickerview_textsize"-->
-<!--            android:layout_centerHorizontal="true"-->
-<!--            app:trackTint="@drawable/switch_track_selector"-->
-<!--            app:trackTintMode="multiply"-->
-<!--            app:thumbTint="@drawable/switch_thumb_color_selector"-->
-<!--            app:thumbTintMode="multiply"-->
-<!--            />-->
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/ss_reminder_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:checked="false"
+            android:layout_marginRight="60dp"
+            android:textSize="@dimen/pickerview_textsize"
+            android:layout_centerHorizontal="true"
+            app:trackTint="@drawable/switch_track_selector"
+            app:trackTintMode="multiply"
+            app:thumbTint="@drawable/switch_thumb_color_selector"
+            app:thumbTintMode="multiply"
+            />
+    </LinearLayout>
+    <!-- Add the divider between LinearLayouts -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@drawable/divider" />
+    <!--pomodoro_alarm-->
 
-<!--    </LinearLayout>-->
+    <LinearLayout
+        android:id="@+id/ll_pomodoro_alarm"
+        android:layout_marginTop="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/tv_pomodoro_timer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:textSize="@dimen/pickerview_textsize"
+            android:text="@string/pomodoro_alarm" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/ss_pomo_timer"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:checked="false"
+            android:layout_marginRight="60dp"
+            android:textSize="@dimen/pickerview_textsize"
+            android:layout_centerHorizontal="true"
+            app:trackTint="@drawable/switch_track_selector"
+            app:trackTintMode="multiply"
+            app:thumbTint="@drawable/switch_thumb_color_selector"
+            app:thumbTintMode="multiply"
+            />
+
+    </LinearLayout>
 
 </LinearLayout>

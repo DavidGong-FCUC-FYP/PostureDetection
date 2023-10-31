@@ -79,6 +79,8 @@
     <!--front and back-->
     <string name="front">Front</string>
     <string name="back">Back</string>
+    <!--Reminder Notification-->
+    <string name="reminder_notification">Reminder Notification</string>
     <!--Pomodoro Alarm-->
     <string name="pomodoro_alarm">Pomodoro Timer</string>
     <!--"Working time is over. Take a break!"-->
@@ -114,4 +116,15 @@
         <item>Back</item>
         <item>Front</item>
     </string-array>
+
+
+    <!--"Daily Reminder"-->
+    <string name="daily_reminder">Daily Reminder</string>
+    <!--"Daily Reminder Context"-->
+    <string name="daily_reminder_context">It is time for your daily reminder</string>
+
+    <!--"Pomo Timer Reminder"-->
+    <string name="pomo_timer_reminder">Pomo Timer Reminder</string>
+    <!--"Pomo Timer Reminder Context"-->
+    <string name="pomo_timer_reminder_context">It is time for your pomo timer reminder</string>
 </resources>

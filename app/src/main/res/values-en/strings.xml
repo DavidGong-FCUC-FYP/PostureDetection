@@ -98,6 +98,10 @@
     <!--No-->
     <string name="no">No</string>
 
+
+    <!--Reminder Notification-->
+    <string name="reminder_notification">Reminder Notification</string>
+
     <string-array name="tfe_pe_device_name" translatable="false">
         <item>CPU</item>
         <item>GPU</item>
@@ -108,4 +112,14 @@
         <item>Back</item>
         <item>Front</item>
     </string-array>
+
+
+    <!--"Daily Reminder"-->
+    <string name="daily_reminder">Daily Reminder</string>
+    <!--"Daily Reminder Context"-->
+    <string name="daily_reminder_context">It is time for your daily reminder</string>
+    <!--"Pomo Timer Reminder"-->
+    <string name="pomo_timer_reminder">Pomo Timer Reminder</string>
+    <!--"Pomo Timer Reminder Context"-->
+    <string name="pomo_timer_reminder_context">It is time for your pomo timer reminder</string>
 </resources>
