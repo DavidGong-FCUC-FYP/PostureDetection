@@ -5,6 +5,9 @@ This is a posture detection app, it can detect your posture and give you a score
 create by David Gong for the final year project.
 use the tensorflow lite to do the detection posture.
 
+## APK
+https://github.com/davidgonghs/PostureDetection/blob/main/postureDetection.apk
+
 
 ## web site
 <!-- 
