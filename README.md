@@ -7,8 +7,9 @@ use the tensorflow lite to do the detection posture.
 
 
 ## web site
+<!-- 
 www.posturedetection.com
-
+--->
 ## How to use
 1. Download the app from the website
 2. Open the app
