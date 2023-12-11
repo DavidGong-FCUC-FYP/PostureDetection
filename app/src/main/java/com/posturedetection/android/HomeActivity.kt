@@ -286,10 +286,6 @@ class HomeActivity : AppCompatActivity() {
                                             runOnUiThread {
                                                 ivStatus.setImageResource(R.drawable.forwardhead_confirm)
                                             }
-                                        } else if (forwardheadCounter > 30) {
-                                            runOnUiThread {
-                                                ivStatus.setImageResource(R.drawable.forwardhead_suspect)
-                                            }
                                         }
 
                                         /** 显示 Debug 信息 */
@@ -317,12 +313,7 @@ class HomeActivity : AppCompatActivity() {
                                             runOnUiThread {
                                                 ivStatus.setImageResource(R.drawable.crossleg_confirm)
                                             }
-                                        } else if (crosslegCounter > 30) {
-                                            runOnUiThread {
-                                                ivStatus.setImageResource(R.drawable.crossleg_suspect)
-                                            }
                                         }
-
                                         /** 显示 Debug 信息 */
                                         tvDebug.text = getString(R.string.tfe_pe_tv_debug, "${sortedLabels[0].first} $crosslegCounter")
                                     }

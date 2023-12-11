@@ -98,26 +98,6 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             }
         }
 
-//        if (account_settings_json != null){
-//            var gson = Gson()
-//            var accountSettings = gson.fromJson(account_settings_json, AccountSettings::class.java)
-//            if (accountSettings != null){
-//                var language = "en"
-//                when(accountSettings.language){
-//                    0 -> {
-//                        language = "en"
-//                    }
-//                    1 -> {
-//                        language = "zh"
-//                    }
-//                    2 -> {
-//                        language = "ms"
-//                    }
-//                }
-//                val locales = LocaleListCompat.forLanguageTags(language)
-//                AppCompatDelegate.setApplicationLocales(locales)
-//            }
-//        }
 
         val account = sp.getString("account", "")
         if (account != "") {
