@@ -283,7 +283,7 @@ public class PersonalInformationActivity extends AppCompatActivity implements Vi
             //如果是编辑名字，则修改展示
             case EDIT_NAME:
                 if(resultCode == RESULT_OK){
-                    ig_name.getContentEdt().setText(loginUser.getName());
+                    ig_name.getContentEdt().setText(loginUser.getUsername());
                 }
                 break;
             default:
@@ -294,7 +294,7 @@ public class PersonalInformationActivity extends AppCompatActivity implements Vi
     private void initInfo(){
         LoginUser loginUser = LoginUser.getInstance();
         ig_id.getContentEdt().setText(String.valueOf(loginUser.getId()));  //ID是int，转string
-        ig_name.getContentEdt().setText(loginUser.getName());
+        ig_name.getContentEdt().setText(loginUser.getUsername());
         ig_email.getContentEdt().setText(loginUser.getEmail());
         ig_phone.getContentEdt().setText(loginUser.getPhone());
         ri_portrati.setImageURI(loginUser.getImgUrl());

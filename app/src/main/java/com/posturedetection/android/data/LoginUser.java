@@ -14,7 +14,7 @@ public class LoginUser extends Application {
     private static User _user;
 
     private long id;
-    private String name;
+    private String username;
     private String email;
     private String phone;
     private String password;
@@ -37,7 +37,7 @@ public class LoginUser extends Application {
     private String birthday;
 
     public LoginUser(String name, String email) {
-        this.name = name;
+        this.username = name;
         this.email = email;
     }
 
@@ -55,7 +55,7 @@ public class LoginUser extends Application {
 
     public void update(){
         if(_user.getId() == this.id){
-            _user.setName(this.name);
+            _user.setUsername(this.username);
             _user.setEmail(this.email);
             _user.setPhone(this.phone);
             _user.setImgUrl(this.imgUrl);
@@ -70,7 +70,7 @@ public class LoginUser extends Application {
     public void reinit(){
         //update login_user from _user
         login_user.id = _user.getId();
-        login_user.name = _user.getName();
+        login_user.username = _user.getUsername();
         login_user.email = _user.getEmail();
         login_user.phone = _user.getPhone();
         login_user.imgUrl = _user.getImgUrl();
@@ -82,7 +82,7 @@ public class LoginUser extends Application {
     public static boolean logout(){
         if(login_user.id == -1) return false;
         login_user.id = -1;
-        login_user.name = null;
+        login_user.username = null;
         login_user.email = null;
         login_user.phone = null;
         login_user.imgUrl = null;
@@ -95,7 +95,7 @@ public class LoginUser extends Application {
     public boolean login(User user) {
         _user = user;
         login_user.id = user.getId();
-        login_user.name = user.getName();
+        login_user.username = user.getUsername();
         login_user.email = user.getEmail();
         login_user.phone = user.getPhone();
         login_user.imgUrl = user.getImgUrl();
@@ -109,7 +109,7 @@ public class LoginUser extends Application {
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", username='" + username + '\'' +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
                 ", password='" + password + '\'' +
@@ -127,12 +127,12 @@ public class LoginUser extends Application {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String name) {
+        this.username = name;
     }
 
     public String getEmail() {

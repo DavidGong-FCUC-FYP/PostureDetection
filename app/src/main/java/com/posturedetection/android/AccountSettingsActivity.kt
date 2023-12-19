@@ -72,8 +72,8 @@ class AccountSettingsActivity : AppCompatActivity() {
         alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(this, AlarmReceiver::class.java)
         val pomoIntent = Intent(this, PomoTimerAlarmReceiver::class.java)
-        pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0)
-        pomoPendingIntent = PendingIntent.getBroadcast(this, 0, pomoIntent, 0)
+        pendingIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_IMMUTABLE)
+        pomoPendingIntent = PendingIntent.getBroadcast(this, 0, pomoIntent, PendingIntent.FLAG_MUTABLE)
 
 
         titleLayout = binding.tlTitle

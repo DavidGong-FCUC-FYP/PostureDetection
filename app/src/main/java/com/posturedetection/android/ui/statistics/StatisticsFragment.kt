@@ -26,8 +26,6 @@ class StatisticsFragment : Fragment() {
         super.onCreate(savedInstanceState)
         val statisticsViewModel =  ViewModelProvider(this).get(StatisticsViewModel::class.java)
 
-
-
     }
 
     override fun onCreateView(

@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
+import android.os.AsyncTask
 import android.os.Bundle
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
@@ -28,13 +29,22 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.gson.Gson
 import com.posturedetection.android.data.LoginUser
 import com.posturedetection.android.data.model.AccountSettings
+import com.posturedetection.android.data.model.LoginRequestBody
+import com.posturedetection.android.data.model.LoginResponseModel
 import com.posturedetection.android.data.model.User
 import com.posturedetection.android.databinding.ActivityLoginBinding
+import com.posturedetection.android.network.RetrofitClient
+import com.posturedetection.android.network.UserApiService
 import com.posturedetection.android.util.AccountSettingsUtil
 import com.posturedetection.android.util.ActivityCollector
 import com.posturedetection.android.util.MD5
 import com.posturedetection.android.util.ToastUtils
 import org.litepal.LitePal
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.net.HttpURLConnection
+import java.net.URL
 
 
 class LoginActivity : AppCompatActivity(), View.OnClickListener {
@@ -42,6 +52,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var auth: FirebaseAuth
     private lateinit var database: FirebaseDatabase
     private lateinit var googleSignInClient: GoogleSignInClient
+    private val apiService: UserApiService = RetrofitClient.instance
     private var loginUser: LoginUser = LoginUser.getInstance()
     private val gson = Gson()
 
@@ -83,7 +94,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         register = binding.register
         ivEye = binding.ivEye
         ivMoreAccount = binding.ivMoreAccount
-        cbRemember = binding.cbRemember
+
 
         login.setOnClickListener(this)
         register.setOnClickListener(this)
@@ -170,31 +181,32 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             if (it.isSuccessful) {
                 val email = account.email.toString()
                 val jsonUser = sp.getString("account", "")
+                userGoogleLogin(email)
                 //check if user is already logged in or it is not new user
-                if (jsonUser != "") {
-                    user = LitePal.where("email=?", email).findFirst(User::class.java)
-                    if (user != null) {
-                        LoginUser.getInstance().login(user)
-                    }
-                }else {
-                    user = User()
-                    user.email = email
-                    user.name = account.displayName.toString()
-                    if (cbRemember.isChecked) {
-                        user.remember = 1
-                    } else {
-                        user.remember = 0
-                    }
-                    val editor: SharedPreferences.Editor = sp.edit()
-                    val userJson = gson.toJson(user)
-                    editor.putString("account", userJson)
-                    editor.apply()
-                    val uri =
-                        Uri.parse("android.resource://" + this.getPackageName() + "/" + R.drawable.profile)
-                    user.imgUrl = uri
-                    user.save()
-                    loginUser.login(user)
-                }
+//                if (jsonUser != "") {
+//                    user = LitePal.where("email=?", email).findFirst(User::class.java)
+//                    if (user != null) {
+//                        LoginUser.getInstance().login(user)
+//                    }
+//                }else {
+//                    user = User()
+//                    user.email = email
+//                    user.username = account.displayName.toString()
+//                    if (cbRemember.isChecked) {
+//                        user.remember = 1
+//                    } else {
+//                        user.remember = 0
+//                    }
+//                    val editor: SharedPreferences.Editor = sp.edit()
+//                    val userJson = gson.toJson(user)
+//                    editor.putString("account", userJson)
+//                    editor.apply()
+//                    val uri =
+//                        Uri.parse("android.resource://" + this.getPackageName() + "/" + R.drawable.profile)
+//                    user.imgUrl = uri
+//                    user.save()
+//                    loginUser.login(user)
+//                }
                 val intent: Intent = Intent(this, HomeActivity::class.java)
                 Log.d("ProfileFragment", "onCreateView: $account")
                 startActivity(intent)
@@ -227,30 +239,31 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             }
             //登录按钮的逻辑
             R.id.login -> {
-                var loginFlag = false //是否登录成功的标志
-                user = LitePal.where("email=?", email).findFirst(User::class.java)
-
-                //根据user的remember状态，判断是否需要MD5加密
-                password = if (password == "12345678") user.password else MD5.md5(password)
-                //密码正确则登录成功
-                if (user.checkPassword(password)) {
-                    //更新remember状态
-                    user.remember = if (cbRemember.isChecked) 1 else 0
-                    user.update(user.id)
-                    //用户登入，存入LoginUser
-                    LoginUser.getInstance().login(user)
-                    //启动主界面
-                    val intent1 = Intent(this, HomeActivity::class.java)
-                    startActivity(intent1)
-                    loginFlag = true
-                    toastUtils.showShort(this, R.string.login_success.toString())
-                } else {
-                    user.remember = 0
-                }
-
-                if (!loginFlag) {
-                    toastUtils.showShort(this, R.string.login_fail.toString())
-                }
+                userLogin(email,password)
+//                var loginFlag = false //是否登录成功的标志
+//                user = LitePal.where("email=?", email).findFirst(User::class.java)
+//
+//                //根据user的remember状态，判断是否需要MD5加密
+//                password = if (password == "12345678") user.password else MD5.md5(password)
+//                //密码正确则登录成功
+//                if (user.checkPassword(password)) {
+//                    //更新remember状态
+//                    user.remember = if (cbRemember.isChecked) 1 else 0
+//                    user.update(user.id)
+//                    //用户登入，存入LoginUser
+//                    LoginUser.getInstance().login(user)
+//                    //启动主界面
+//                    val intent1 = Intent(this, HomeActivity::class.java)
+//                    startActivity(intent1)
+//                    loginFlag = true
+//                    toastUtils.showShort(this, R.string.login_success.toString())
+//                } else {
+//                    user.remember = 0
+//                }
+//
+//                if (!loginFlag) {
+//                    toastUtils.showShort(this, R.string.login_fail.toString())
+//                }
             }
             //隐藏密码功能
             R.id.iv_eye -> {
@@ -272,4 +285,78 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
+    fun userLogin(email:String,password:String){
+        Log.d("LoginActivity", "userLogin: $email $password")
+        val loginRequestBody = LoginRequestBody(email, password)
+        Log.d("LoginActivity", "userLogin: $loginRequestBody")
+        val call: Call<LoginResponseModel> = apiService.loginUser(loginRequestBody)
+        Log.d("LoginActivity", "userLogin: $call")
+        call.enqueue(object : Callback<LoginResponseModel> {
+            override fun onResponse(call: Call<LoginResponseModel>, response: Response<LoginResponseModel>) {
+                if (response.isSuccessful) {
+                    val result = response.body() // Your response model
+
+                    // Handle the response here
+                    if (result != null && result.status == 200) {
+                        // Login successful
+                        LoginUser.getInstance().login(result.data)
+                        // log result
+                        Log.d("LoginActivity", "onResponse: $result")
+                        val intent1 = Intent(this@LoginActivity, HomeActivity::class.java)
+                        startActivity(intent1)
+                        toastUtils.showShort(this@LoginActivity, R.string.login_success.toString())
+                    } else {
+                        // Login failed, show an error message
+                        toastUtils.showShort(this@LoginActivity, R.string.login_fail.toString())
+                    }
+                } else {
+                    // Handle unsuccessful login response
+                    toastUtils.showShort(this@LoginActivity, R.string.login_fail.toString())
+                }
+            }
+            override fun onFailure(call: Call<LoginResponseModel>, t: Throwable) {
+                Log.d("LoginActivity", "onFailure: $t")
+                // Handle network failure
+                toastUtils.showShort(this@LoginActivity, "Network Error")
+            }
+        })
+    }
+
+
+    fun userGoogleLogin(email:String){
+        val loginRequestBody = LoginRequestBody(email,"")
+        val call: Call<LoginResponseModel> = apiService.googleLoginUser(loginRequestBody)
+        call.enqueue(object : Callback<LoginResponseModel> {
+            override fun onResponse(call: Call<LoginResponseModel>, response: Response<LoginResponseModel>) {
+                if (response.isSuccessful) {
+                    val result = response.body() // Your response model
+
+                    // Handle the response here
+                    if (result != null && result.status == 200) {
+                        // Login successful
+                        LoginUser.getInstance().login(result.data)
+                        // log result
+                        val intent1 = Intent(this@LoginActivity, HomeActivity::class.java)
+                        startActivity(intent1)
+                        toastUtils.showShort(this@LoginActivity, R.string.login_success.toString())
+                    } else {
+                        // Login failed, show an error message
+                        toastUtils.showShort(this@LoginActivity, R.string.login_fail.toString())
+                    }
+                } else {
+                    // Handle unsuccessful login response
+                    toastUtils.showShort(this@LoginActivity, R.string.login_fail.toString())
+                }
+            }
+            override fun onFailure(call: Call<LoginResponseModel>, t: Throwable) {
+                // Handle network failure
+                toastUtils.showShort(this@LoginActivity, "Network Error")
+            }
+        })
+    }
+
+
+
 }
+
+

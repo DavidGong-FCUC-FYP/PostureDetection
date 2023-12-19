@@ -9,7 +9,7 @@
         android:id="@+id/navigation_detection"
         android:name="com.posturedetection.android.HomeActivity"
         android:label="@string/title_detection"
-        tools:layout="@layout/activity_detection" />
+        tools:layout="@layout/activity_home" />
 
     <fragment
         android:id="@+id/navigation_statistics"

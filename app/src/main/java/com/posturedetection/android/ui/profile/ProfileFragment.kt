@@ -44,7 +44,7 @@ class ProfileFragment : Fragment() {
         val root: View = binding.root
         loginUser.reinit()
         binding.userImg.setImageURI(loginUser.imgUrl)
-        binding.profileUsername.text = loginUser.name
+        binding.profileUsername.text = loginUser.username
         binding.profileEmail.text = loginUser.email
 
         binding.btnPersonalInformation.setOnClickListener(View.OnClickListener {

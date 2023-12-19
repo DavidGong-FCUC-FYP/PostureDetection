@@ -21,7 +21,7 @@ LitePal巨坑之一！下面的属性remember本可以设计为boolean值，但�
 public class User extends LitePalSupport {
     private long id;
     @Column(nullable = false)
-    private String name;
+    private String username;
     @Column(unique = true,nullable = false)
     private String email;
     private String phone;
@@ -101,12 +101,12 @@ public class User extends LitePalSupport {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String name) {
+        this.username = name;
     }
 
     public String getPassword() {
@@ -149,7 +149,7 @@ public class User extends LitePalSupport {
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", username='" + username + '\'' +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
                 ", password='" + password + '\'' +
