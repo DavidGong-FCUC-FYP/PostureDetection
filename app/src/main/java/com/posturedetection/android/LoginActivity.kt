@@ -162,7 +162,10 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         if (task.isSuccessful) {
             val account: GoogleSignInAccount? = task.result
             if (account != null) {
-                updateUI(account)
+                var email = account.email.toString()
+                Log.d("LoginActivity", "handleGoogleResults: $email")
+//                updateUI(account)
+                userGoogleLogin(email)
             }
         } else {
             Toast.makeText(this, task.exception.toString(), Toast.LENGTH_SHORT).show()
@@ -175,47 +178,48 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
      * @param account
      *
      */
-    private fun updateUI(account: GoogleSignInAccount) {
-        val credential = GoogleAuthProvider.getCredential(account.idToken, null)
-        auth.signInWithCredential(credential).addOnCompleteListener {
-            if (it.isSuccessful) {
-                val email = account.email.toString()
-                val jsonUser = sp.getString("account", "")
-                userGoogleLogin(email)
-                //check if user is already logged in or it is not new user
-//                if (jsonUser != "") {
-//                    user = LitePal.where("email=?", email).findFirst(User::class.java)
-//                    if (user != null) {
-//                        LoginUser.getInstance().login(user)
-//                    }
-//                }else {
-//                    user = User()
-//                    user.email = email
-//                    user.username = account.displayName.toString()
-//                    if (cbRemember.isChecked) {
-//                        user.remember = 1
-//                    } else {
-//                        user.remember = 0
-//                    }
-//                    val editor: SharedPreferences.Editor = sp.edit()
-//                    val userJson = gson.toJson(user)
-//                    editor.putString("account", userJson)
-//                    editor.apply()
-//                    val uri =
-//                        Uri.parse("android.resource://" + this.getPackageName() + "/" + R.drawable.profile)
-//                    user.imgUrl = uri
-//                    user.save()
-//                    loginUser.login(user)
-//                }
-                val intent: Intent = Intent(this, HomeActivity::class.java)
-                Log.d("ProfileFragment", "onCreateView: $account")
-                startActivity(intent)
-            } else {
-                Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
-
-            }
-        }
-    }
+//    private fun updateUI(account: GoogleSignInAccount): String {
+//        val credential = GoogleAuthProvider.getCredential(account.idToken, null)
+//        auth.signInWithCredential(credential).addOnCompleteListener {
+//            if (it.isSuccessful) {
+//                val email = account.email.toString()
+////                val jsonUser = sp.getString("account", "")
+////                Log.d("LoginActivity", "userGoogleLogin: $email")
+////                userGoogleLogin(email)
+//                //check if user is already logged in or it is not new user
+////                if (jsonUser != "") {
+////                    user = LitePal.where("email=?", email).findFirst(User::class.java)
+////                    if (user != null) {
+////                        LoginUser.getInstance().login(user)
+////                    }
+////                }else {
+////                    user = User()
+////                    user.email = email
+////                    user.username = account.displayName.toString()
+////                    if (cbRemember.isChecked) {
+////                        user.remember = 1
+////                    } else {
+////                        user.remember = 0
+////                    }
+////                    val editor: SharedPreferences.Editor = sp.edit()
+////                    val userJson = gson.toJson(user)
+////                    editor.putString("account", userJson)
+////                    editor.apply()
+////                    val uri =
+////                        Uri.parse("android.resource://" + this.getPackageName() + "/" + R.drawable.profile)
+////                    user.imgUrl = uri
+////                    user.save()
+////                    loginUser.login(user)
+////                }
+////                val intent: Intent = Intent(this, HomeActivity::class.java)
+//                Log.d("ProfileFragment", "onCreateView: $account")
+////                startActivity(intent)
+//            } else {
+//                Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
+//
+//            }
+//        }
+//    }
 
     override fun onStart() {
         super.onStart()
@@ -239,7 +243,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             }
             //登录按钮的逻辑
             R.id.login -> {
-                userLogin(email,password)
+               userLogin(email,password)
 //                var loginFlag = false //是否登录成功的标志
 //                user = LitePal.where("email=?", email).findFirst(User::class.java)
 //
@@ -324,13 +328,16 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
 
     fun userGoogleLogin(email:String){
+        Log.d("LoginActivity", "userGoogleLogin: $email")
         val loginRequestBody = LoginRequestBody(email,"")
+        Log.d("LoginActivity", "userGoogleLogin: $loginRequestBody")
         val call: Call<LoginResponseModel> = apiService.googleLoginUser(loginRequestBody)
         call.enqueue(object : Callback<LoginResponseModel> {
             override fun onResponse(call: Call<LoginResponseModel>, response: Response<LoginResponseModel>) {
+                Log.d("LoginActivity", "userGoogleLogin response: $response")
                 if (response.isSuccessful) {
                     val result = response.body() // Your response model
-
+                    Log.d("LoginActivity", "userGoogleLogin: $result")
                     // Handle the response here
                     if (result != null && result.status == 200) {
                         // Login successful

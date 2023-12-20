@@ -37,7 +37,7 @@ class EditItemActivity : AppCompatActivity() {
 
         //following the extra then set the text
         when(title){
-            "Name" -> etEditContent.setText(loginUser.name)
+            "Name" -> etEditContent.setText(loginUser.username)
             "Email" -> etEditContent.setText(loginUser.email)
             "Phone" -> etEditContent.setText(loginUser.phone)
             else -> etEditContent.setText("Unknown")
@@ -47,7 +47,7 @@ class EditItemActivity : AppCompatActivity() {
         tlTitle.iv_save.setOnClickListener {
             var input = etEditContent.text.toString()
             when(title){
-                "Name" -> loginUser.name = input
+                "Name" -> loginUser.username = input
                 "Email" -> loginUser.email = input
                 "Phone" -> loginUser.phone = input
             }
